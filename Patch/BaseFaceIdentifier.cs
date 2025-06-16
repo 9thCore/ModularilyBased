@@ -14,6 +14,7 @@ namespace ModularilyBased.Patch
             AnySide,
             LongSide,
             ShortSide,
+            CorridorCap,
             // Top,
             // Bottom,
             // Center
