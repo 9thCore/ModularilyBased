@@ -10,7 +10,8 @@ namespace ModularilyBased.Patch
         [HarmonyPostfix]
         public static void Patch(BaseExplicitFace __result)
         {
-            if (!__result.face.HasValue
+            if (__result == null
+                || !__result.face.HasValue
                 || __result.TryGetComponent(out BaseFaceIdentifier _))
             {
                 return;
