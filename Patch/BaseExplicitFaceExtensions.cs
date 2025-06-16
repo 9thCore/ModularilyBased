@@ -26,6 +26,12 @@ namespace ModularilyBased.Patch
                 return false;
             }
 
+            if (Corridors.Contains(type))
+            {
+                scale = CorridorSideColliderScale;
+                return true;
+            }
+
             switch (type)
             {
                 case TechType.BaseRoom
@@ -34,14 +40,29 @@ namespace ModularilyBased.Patch
                 or TechType.BaseMoonpool:
                     scale = RoomSideColliderScale;
                     return true;
-                case TechType.BaseCorridor
-                or TechType.BaseCorridorGlass:
-                    scale = CorridorSideColliderScale;
-                    return true;
                 default:
                     scale = Vector3.zero;
                     return false;
             }
+        }
+
+        public static bool TryGetColliderRotationOffset(this BaseExplicitFace face, out Quaternion offset)
+        {
+            if (!face.TryGetCellIdentifier(out TechType type)
+                || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType))
+            {
+                offset = Quaternion.identity;
+                return false;
+            }
+
+            if (Corridors.Contains(type) && faceType == BaseFaceIdentifier.FaceType.CorridorCap)
+            {
+                offset = CorridorCapRotation;
+                return true;
+            }
+
+            offset = Quaternion.identity;
+            return true;
         }
 
         public static bool TryGetColliderDistance(this BaseExplicitFace face, out float distance)
@@ -51,6 +72,18 @@ namespace ModularilyBased.Patch
             {
                 distance = 0f;
                 return false;
+            }
+
+            if (Corridors.Contains(type))
+            {
+                if (faceType == BaseFaceIdentifier.FaceType.CorridorCap)
+                {
+                    distance = 2.25f;
+                    return true;
+                }
+
+                distance = 0.875f;
+                return true;
             }
 
             bool longSide = (faceType == BaseFaceIdentifier.FaceType.LongSide);
@@ -69,10 +102,6 @@ namespace ModularilyBased.Patch
                 case TechType.BaseMoonpool:
                     distance = longSide ? 0.35f : -0.25f;
                     return true;
-                case TechType.BaseCorridor
-                or TechType.BaseCorridorGlass:
-                    distance = 0f;
-                    return true;
                 default:
                     distance = 0f;
                     return false;
@@ -85,6 +114,16 @@ namespace ModularilyBased.Patch
             {
                 type = BaseFaceIdentifier.FaceType.None;
                 return false;
+            }
+
+            if (Corridors.Contains(tech))
+            {
+                // eugh
+                if (face.gameObject.name.Contains("Cap"))
+                {
+                    type = BaseFaceIdentifier.FaceType.CorridorCap;
+                    return true;
+                }
             }
 
             if (RectangularRooms.Contains(tech))
@@ -105,13 +144,27 @@ namespace ModularilyBased.Patch
         }
 
         public static readonly Vector3 RoomSideColliderScale = new Vector3(0.5f, 3.0f, 3.5f);
-        public static readonly Vector3 CorridorSideColliderScale = new Vector3(0.5f, 2.5f, 3.5f);
+        public static readonly Vector3 CorridorSideColliderScale = new Vector3(0.5f, 2.25f, 2.25f);
+
+        public static readonly Quaternion CorridorCapRotation = Quaternion.Euler(0f, 270f, 0f);
 
         // Because some rooms may have short & long sides
         public static readonly HashSet<TechType> RectangularRooms = new HashSet<TechType>()
         {
             TechType.BaseLargeRoom,
             TechType.BaseMoonpool
+        };
+
+        public static readonly HashSet<TechType> Corridors = new HashSet<TechType>()
+        {
+            TechType.BaseCorridor,
+            TechType.BaseCorridorI,
+            TechType.BaseCorridorL,
+            TechType.BaseCorridorX,
+            TechType.BaseCorridorT,
+            TechType.BaseCorridorGlass,
+            TechType.BaseCorridorGlassI,
+            TechType.BaseCorridorGlassL
         };
     }
 }

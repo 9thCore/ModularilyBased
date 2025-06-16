@@ -38,7 +38,8 @@ namespace ModularilyBased.Patch
             if (!face.TryGetCellIdentifier(out TechType type)
                 || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType)
                 || !face.TryGetColliderDistance(out float distance)
-                || !face.TryGetColliderScale(out Vector3 scale))
+                || !face.TryGetColliderScale(out Vector3 scale)
+                || !face.TryGetColliderRotationOffset(out Quaternion rotation))
             {
                 return;
             }
@@ -52,7 +53,7 @@ namespace ModularilyBased.Patch
 
             obj.transform.SetParent(face.transform, false);
             obj.transform.localScale = scale;
-            obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localRotation = rotation;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.position += obj.transform.right * distance;
 
