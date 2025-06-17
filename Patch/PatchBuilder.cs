@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
 using ModularilyBased.Library;
+using ModularilyBased.Library.TransformRule.Position;
+using ModularilyBased.Library.TransformRule.Rotation;
 using UnityEngine;
 
 namespace ModularilyBased.Patch
@@ -7,6 +9,9 @@ namespace ModularilyBased.Patch
     [HarmonyPatch]
     public static class PatchBuilder
     {
+        // awful
+        public static int lastPlaceableTime = 0;
+
         [HarmonyPatch(typeof(Builder), nameof(Builder.SetPlaceOnSurface))]
         [HarmonyPostfix]
         public static void PatchPlacement()
@@ -18,10 +23,15 @@ namespace ModularilyBased.Patch
                 return;
             }
 
+            lastPlaceableTime = Time.frameCount;
+
             Transform transform = identifier.collider.transform;
 
-            Builder.placePosition = transform.position;
-            Builder.placeRotation = snapper.rotation.Apply(Builder.placeRotation) * transform.rotation;
+            PositionRule positionRule = snapper.transformationRule.positionRule;
+            RotationRule rotationRule = snapper.transformationRule.rotationRule;
+
+            Builder.placePosition = positionRule.Calculate(transform);
+            Builder.placeRotation = rotationRule.Calculate(transform);
 
             return;
         }
@@ -36,7 +46,7 @@ namespace ModularilyBased.Patch
                 return;
             }
 
-            __result = TryFindMatchingModuleCollider(out BaseFaceIdentifier _);
+            __result = (lastPlaceableTime == Time.frameCount);
         }
 
         public static bool TryFindMatchingModuleCollider(out BaseFaceIdentifier result)
@@ -59,7 +69,7 @@ namespace ModularilyBased.Patch
 
             int layerMask = Builder.placeLayerMask.value | (1 << LayerID.Trigger);
 
-            RaycastHit[] hits = Physics.RaycastAll(transform.position, forward, 10f, layerMask, QueryTriggerInteraction.Collide);
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, forward, Builder.placeMaxDistance, layerMask, QueryTriggerInteraction.Collide);
             foreach (RaycastHit hit in hits)
             {
                 BaseFaceIdentifier faceIdentifier = hit.transform.GetComponentInParent<BaseFaceIdentifier>();
