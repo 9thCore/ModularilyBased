@@ -134,12 +134,9 @@ namespace ModularilyBased.Patch
                     type = BaseFaceIdentifier.FaceType.ShortSide;
                     return true;
                 }
-
-                type = BaseFaceIdentifier.FaceType.LongSide;
-                return true;
             }
 
-            type = BaseFaceIdentifier.FaceType.AnySide;
+            type = BaseFaceIdentifier.FaceType.LongSide;
             return true;
         }
 
