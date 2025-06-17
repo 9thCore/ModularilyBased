@@ -49,8 +49,11 @@ namespace ModularilyBased.Patch
             identifier.room = type;
             identifier.face = faceType;
 
-            GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BoxCollider collider = obj.AddComponent<BoxCollider>();
+            GameObject obj = new GameObject();
+            BoxCollider collider = obj.EnsureComponent<BoxCollider>();
+
+            obj.layer = LayerID.Trigger;
+            collider.isTrigger = true;
 
             obj.transform.SetParent(face.transform, false);
             obj.transform.localScale = scale;
@@ -59,6 +62,7 @@ namespace ModularilyBased.Patch
             obj.transform.position += obj.transform.right * distance;
 
             identifier.collider = collider;
+            identifier.explicitFace = face;
         }
     }
 }
