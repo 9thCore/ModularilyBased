@@ -4,6 +4,9 @@ using UnityEngine;
 using Nautilus.Utility;
 using ModularilyBased.Library;
 using Nautilus.Assets.Gadgets;
+using ModularilyBased.Library.TransformRule;
+using ModularilyBased.Library.TransformRule.Rotation;
+using ModularilyBased.Library.TransformRule.Position;
 
 namespace ModularilyBased.Example
 {
@@ -13,7 +16,10 @@ namespace ModularilyBased.Example
 
         public static void Register()
         {
-            Info = PrefabInfo.WithTechType("WallSnappedExample", "Wall snapped example", "An example of wall snapping.");
+            Info = PrefabInfo
+                .WithTechType("WallSnappedExample", "Wall snapped example", "A simple example of wall snapping.")
+                .WithIcon(SpriteManager.Get(TechType.BaseHatch));
+
             CustomPrefab prefab = new CustomPrefab(Info);
 
             prefab.SetRecipe(new Nautilus.Crafting.RecipeData(
@@ -31,7 +37,15 @@ namespace ModularilyBased.Example
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
                 PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Wall | ConstructableFlags.Base, model);
-                ModuleSnapper.SetSnappingRules(obj, ModuleSnapper.RoomRule.SmallRoom, ModuleSnapper.PlacementRule.Side, ModuleSnapper.OffsetRotationRule.NoOffsetFixed);
+
+                TransformationRule rules = new TransformationRule()
+                .WithRotationRule(OffsetRotationRule.NoOffset);
+
+                ModuleSnapper.SetSnappingRules(
+                    obj,
+                    ModuleSnapper.RoomRule.SmallRoom,
+                    ModuleSnapper.PlacementRule.Side,
+                    rules);
             };
 
             prefab.Register();
