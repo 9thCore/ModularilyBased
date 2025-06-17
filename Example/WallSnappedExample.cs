@@ -38,7 +38,12 @@ namespace ModularilyBased.Example
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
                 PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Wall | ConstructableFlags.Base, model);
 
+                ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
+                bounds.bounds.position = new Vector3(0f, 0.7f, 0f);
+                bounds.bounds.size = new Vector3(0.5f, 0.7f, 0.2f);
+
                 TransformationRule rules = new TransformationRule()
+                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 1f))
                 .WithRotationRule(OffsetRotationRule.NoOffset);
 
                 ModuleSnapper.SetSnappingRules(
