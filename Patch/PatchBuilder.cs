@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using ModularilyBased.Library;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModularilyBased.Patch
@@ -8,6 +7,25 @@ namespace ModularilyBased.Patch
     [HarmonyPatch]
     public static class PatchBuilder
     {
+        [HarmonyPatch(typeof(Builder), nameof(Builder.SetPlaceOnSurface))]
+        [HarmonyPostfix]
+        public static void PatchPlacement()
+        {
+            GameObject prefab = Builder.prefab;
+            if (!prefab.TryGetComponent(out ModuleSnapper snapper)
+                || !TryFindMatchingModuleCollider(out BaseFaceIdentifier identifier))
+            {
+                return;
+            }
+
+            Transform transform = identifier.collider.transform;
+
+            Builder.placePosition = transform.position;
+            Builder.placeRotation = snapper.rotation.Apply(Builder.placeRotation) * transform.rotation;
+
+            return;
+        }
+
         [HarmonyPatch(typeof(Builder), nameof(Builder.UpdateAllowed))]
         [HarmonyPostfix]
         public static void PatchUpdateAllowed(ref bool __result)
