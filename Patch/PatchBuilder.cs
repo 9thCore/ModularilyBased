@@ -46,7 +46,7 @@ namespace ModularilyBased.Patch
                 return;
             }
 
-            __result = (lastPlaceableTime == Time.frameCount);
+            __result = __result && (lastPlaceableTime == Time.frameCount);
         }
 
         public static bool TryFindMatchingModuleCollider(out BaseFaceIdentifier result)
