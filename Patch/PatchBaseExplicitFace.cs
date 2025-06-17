@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using UnityEngine;
 
 namespace ModularilyBased.Patch
@@ -19,8 +20,8 @@ namespace ModularilyBased.Patch
 
             switch (__result.face.Value.direction)
             {
-                case Base.Direction.Above:
-                    // PatchVertical(__result);
+                case Base.Direction.Below:
+                    PatchVertical(__result);
                     break;
                 case Base.Direction.North
                 or Base.Direction.South
@@ -28,14 +29,34 @@ namespace ModularilyBased.Patch
                 or Base.Direction.West:
                     PatchHorizontal(__result);
                     break;
-                case Base.Direction.Below
-                or Base.Direction.Count:
+                default:
                     return;
             }
         }
 
         public static void PatchHorizontal(BaseExplicitFace face)
         {
+            if (!TryCreateCollider(face, out GameObject obj)
+                || !face.TryGetColliderDistance(out float distance))
+            {
+                return;
+            }
+
+            obj.transform.position += obj.transform.right * distance;
+        }
+
+        public static void PatchVertical(BaseExplicitFace face)
+        {
+            Vector3 position = face.transform.localPosition;
+
+            // eugh
+            if (!face.gameObject.name.Contains("Cover")
+                || Math.Abs(position.x - 5f) > 0.1f
+                || (position.z % 5f) > 0.1f)
+            {
+                return;
+            }
+
             if (!face.TryGetCellIdentifier(out TechType type)
                 || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType)
                 || !face.TryGetColliderDistance(out float distance)
@@ -45,24 +66,40 @@ namespace ModularilyBased.Patch
                 return;
             }
 
+            face.gameObject.SetActive(false);
+        }
+
+        public static bool TryCreateCollider(BaseExplicitFace face, out GameObject result)
+        {
+            if (!face.TryGetCellIdentifier(out TechType type)
+                || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType)
+                || !face.TryGetColliderScale(out Vector3 scale)
+                || !face.TryGetColliderRotationOffset(out Quaternion rotation))
+            {
+                result = null;
+                return false;
+            }
+
             BaseFaceIdentifier identifier = face.gameObject.AddComponent<BaseFaceIdentifier>();
             identifier.room = type;
             identifier.face = faceType;
 
-            GameObject obj = new GameObject();
-            BoxCollider collider = obj.EnsureComponent<BoxCollider>();
+            result = new GameObject();
+            BoxCollider collider = result.EnsureComponent<BoxCollider>();
 
-            obj.layer = LayerID.Trigger;
+            result.layer = LayerID.Trigger;
             collider.isTrigger = true;
 
-            obj.transform.SetParent(face.transform, false);
-            obj.transform.localScale = scale;
-            obj.transform.localRotation = rotation;
-            obj.transform.localPosition = Vector3.zero;
-            obj.transform.position += obj.transform.right * distance;
+            result.transform.SetParent(face.transform, false);
+            result.transform.localScale = scale;
+            result.transform.localRotation = rotation;
+            result.transform.localPosition = Vector3.zero;
 
             identifier.collider = collider;
             identifier.explicitFace = face;
+            identifier.seabase = face.gameObject.GetComponentInParent<Base>();
+
+            return true;
         }
     }
 }
