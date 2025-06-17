@@ -47,26 +47,11 @@ namespace ModularilyBased.Patch
 
         public static void PatchVertical(BaseExplicitFace face)
         {
-            Vector3 position = face.transform.localPosition;
-
-            // eugh
-            if (!face.gameObject.name.Contains("Cover")
-                || Math.Abs(position.x - 5f) > 0.1f
-                || (position.z % 5f) > 0.1f)
+            if (!face.IsCenterFace()
+                || !TryCreateCollider(face, out GameObject obj))
             {
                 return;
             }
-
-            if (!face.TryGetCellIdentifier(out TechType type)
-                || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType)
-                || !face.TryGetColliderDistance(out float distance)
-                || !face.TryGetColliderScale(out Vector3 scale)
-                || !face.TryGetColliderRotationOffset(out Quaternion rotation))
-            {
-                return;
-            }
-
-            face.gameObject.SetActive(false);
         }
 
         public static bool TryCreateCollider(BaseExplicitFace face, out GameObject result)
@@ -83,21 +68,18 @@ namespace ModularilyBased.Patch
             BaseFaceIdentifier identifier = face.gameObject.AddComponent<BaseFaceIdentifier>();
             identifier.room = type;
             identifier.face = faceType;
+            identifier.explicitFace = face;
 
-            result = new GameObject();
-            BoxCollider collider = result.EnsureComponent<BoxCollider>();
+            result = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            identifier.collider = result.EnsureComponent<BoxCollider>();
 
             result.layer = LayerID.Trigger;
-            collider.isTrigger = true;
+            identifier.collider.isTrigger = true;
 
             result.transform.SetParent(face.transform, false);
             result.transform.localScale = scale;
             result.transform.localRotation = rotation;
             result.transform.localPosition = Vector3.zero;
-
-            identifier.collider = collider;
-            identifier.explicitFace = face;
-            identifier.seabase = face.gameObject.GetComponentInParent<Base>();
 
             return true;
         }

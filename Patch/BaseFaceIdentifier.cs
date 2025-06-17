@@ -18,7 +18,7 @@ namespace ModularilyBased.Patch
             CorridorCap,
             // Top,
             // Bottom,
-            // Center
+            Center
         }
     }
 }

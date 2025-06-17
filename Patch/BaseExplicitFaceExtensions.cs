@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ModularilyBased.Patch
 {
@@ -20,7 +22,8 @@ namespace ModularilyBased.Patch
 
         public static bool TryGetColliderScale(this BaseExplicitFace face, out Vector3 scale)
         {
-            if (!face.TryGetCellIdentifier(out TechType type))
+            if (!face.TryGetCellIdentifier(out TechType type)
+                || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType))
             {
                 scale = Vector3.zero;
                 return false;
@@ -28,7 +31,7 @@ namespace ModularilyBased.Patch
 
             if (Corridors.Contains(type))
             {
-                scale = CorridorSideColliderScale;
+                scale = CorridorColliderScale;
                 return true;
             }
 
@@ -38,7 +41,12 @@ namespace ModularilyBased.Patch
                 or TechType.BaseLargeRoom
                 or TechType.BaseMapRoom
                 or TechType.BaseMoonpool:
-                    scale = RoomSideColliderScale;
+                    scale = faceType switch
+                    {
+                        BaseFaceIdentifier.FaceType.Center => RoomCenterColliderScale,
+                        _ => RoomSideColliderScale
+                    };
+
                     return true;
                 default:
                     scale = Vector3.zero;
@@ -116,6 +124,12 @@ namespace ModularilyBased.Patch
                 return false;
             }
 
+            if (face.IsCenterFace())
+            {
+                type = BaseFaceIdentifier.FaceType.Center;
+                return true;
+            }
+
             if (Corridors.Contains(tech))
             {
                 // eugh
@@ -140,8 +154,26 @@ namespace ModularilyBased.Patch
             return true;
         }
 
+        public static bool IsCenterFace(this BaseExplicitFace face)
+        {
+            Vector3 position = face.transform.localPosition;
+
+            // eugh
+            if (face.face?.direction == Base.Direction.Below
+                && face.gameObject.name.Contains("Cover")
+                && Math.Abs(position.x - 5f) < 0.1f
+                && (position.z % 5f) < 0.1f)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static readonly Vector3 RoomSideColliderScale = new Vector3(0.5f, 3.0f, 3.5f);
-        public static readonly Vector3 CorridorSideColliderScale = new Vector3(0.5f, 2.25f, 2.25f);
+        public static readonly Vector3 RoomCenterColliderScale = new Vector3(2.5f, 3.0f, 2.5f);
+
+        public static readonly Vector3 CorridorColliderScale = new Vector3(0.5f, 2.25f, 2.25f);
 
         public static readonly Quaternion CorridorCapRotation = Quaternion.Euler(0f, 270f, 0f);
 
