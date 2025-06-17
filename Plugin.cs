@@ -2,6 +2,9 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using ModularilyBased.Example;
+using ModularilyBased.Patch;
+using UnityEngine;
 
 namespace ModularilyBased
 {
@@ -12,6 +15,8 @@ namespace ModularilyBased
         public new static ManualLogSource Logger { get; private set; }
 
         private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
+
+        public const bool RegisterExample = true;
 
         private void Awake()
         {
@@ -28,7 +33,12 @@ namespace ModularilyBased
 
         private void InitializePrefabs()
         {
-            // 
+            if (!RegisterExample)
+            {
+                return;
+            }
+
+            WallSnappedExample.Register();
         }
     }
 }
