@@ -31,7 +31,7 @@ namespace ModularilyBased.Example
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
                 PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Wall | ConstructableFlags.Base, model);
-                BaseFaceSnapper.SetSnappingRules(obj, BaseFaceSnapper.RoomRule.SmallRoom, BaseFaceSnapper.PlacementRule.Side, BaseFaceSnapper.OffsetRotationRule.NoOffsetFixed);
+                ModuleSnapper.SetSnappingRules(obj, ModuleSnapper.RoomRule.SmallRoom, ModuleSnapper.PlacementRule.Side, ModuleSnapper.OffsetRotationRule.NoOffsetFixed);
             };
 
             prefab.Register();

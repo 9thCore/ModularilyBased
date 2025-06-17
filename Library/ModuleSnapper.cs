@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModularilyBased.Library
 {
-    public class BaseFaceSnapper : MonoBehaviour
+    public class ModuleSnapper : MonoBehaviour
     {
         public RoomRule room = RoomRule.None;
         public PlacementRule placement = PlacementRule.None;
@@ -15,14 +15,14 @@ namespace ModularilyBased.Library
          * Apply snapping to the targetted object.
          * </summary>
          */
-        public static BaseFaceSnapper SetSnappingRules(GameObject target, RoomRule room, PlacementRule placement, RotationRule rotation)
+        public static ModuleSnapper SetSnappingRules(GameObject target, RoomRule room, PlacementRule placement, RotationRule rotation)
         {
             if (target == null)
             {
                 return null;
             }
 
-            BaseFaceSnapper snapper = target.EnsureComponent<BaseFaceSnapper>();
+            ModuleSnapper snapper = target.EnsureComponent<ModuleSnapper>();
             snapper.room = room;
             snapper.placement = placement;
             snapper.rotation = rotation;

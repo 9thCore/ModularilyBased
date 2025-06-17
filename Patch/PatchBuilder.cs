@@ -13,7 +13,7 @@ namespace ModularilyBased.Patch
         public static void PatchUpdateAllowed(ref bool __result)
         {
             GameObject prefab = Builder.prefab;
-            if (!prefab.TryGetComponent(out BaseFaceSnapper snapper))
+            if (!prefab.TryGetComponent(out ModuleSnapper snapper))
             {
                 return;
             }
@@ -25,7 +25,7 @@ namespace ModularilyBased.Patch
         {
             GameObject prefab = Builder.prefab;
             if (prefab == null
-                || !prefab.TryGetComponent(out BaseFaceSnapper snapper))
+                || !prefab.TryGetComponent(out ModuleSnapper snapper))
             {
                 result = null;
                 return false;
