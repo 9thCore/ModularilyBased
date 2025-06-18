@@ -2,6 +2,11 @@
 using ModularilyBased.Library;
 using ModularilyBased.Library.TransformRule.Position;
 using ModularilyBased.Library.TransformRule.Rotation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 
 namespace ModularilyBased.Patch
@@ -12,12 +17,13 @@ namespace ModularilyBased.Patch
         // awful
         public static int lastPlaceableTime = 0;
 
-        [HarmonyPatch(typeof(Builder), nameof(Builder.SetPlaceOnSurface))]
+        [HarmonyPatch(typeof(Builder), nameof(Builder.CheckAsSubModule))]
         [HarmonyPostfix]
-        public static void PatchPlacement()
+        public static void PatchPlacement(ref bool __result)
         {
             GameObject prefab = Builder.prefab;
-            if (!prefab.TryGetComponent(out ModuleSnapper snapper)
+            if (Player.main.currentSub == null
+                || !prefab.TryGetComponent(out ModuleSnapper snapper)
                 || !TryFindMatchingModuleCollider(out BaseFaceIdentifier identifier))
             {
                 return;
@@ -27,13 +33,13 @@ namespace ModularilyBased.Patch
 
             Transform transform = identifier.collider.transform;
 
-            PositionRule positionRule = snapper.transformationRule.positionRule;
-            RotationRule rotationRule = snapper.transformationRule.rotationRule;
+            PositionRule positionRule = snapper.transformationRule.PositionRule;
+            RotationRule rotationRule = snapper.transformationRule.RotationRule;
 
             Builder.placePosition = positionRule.Calculate(transform);
             Builder.placeRotation = rotationRule.Calculate(transform);
 
-            return;
+            __result = true;
         }
 
         [HarmonyPatch(typeof(Builder), nameof(Builder.UpdateAllowed))]
