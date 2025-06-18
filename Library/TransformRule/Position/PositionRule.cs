@@ -2,7 +2,7 @@
 
 namespace ModularilyBased.Library.TransformRule.Position
 {
-    public abstract class PositionRule
+    public abstract class PositionRule : BaseTransformationRule
     {
         /**
          * <summary>

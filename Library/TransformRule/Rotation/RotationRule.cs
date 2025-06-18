@@ -2,7 +2,7 @@
 
 namespace ModularilyBased.Library.TransformRule.Rotation
 {
-    public abstract class RotationRule
+    public abstract class RotationRule : BaseTransformationRule
     {
         /**
          * <summary>

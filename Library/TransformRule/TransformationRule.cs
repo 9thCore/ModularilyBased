@@ -5,18 +5,22 @@ namespace ModularilyBased.Library.TransformRule
 {
     public class TransformationRule
     {
-        public PositionRule positionRule = OffsetPositionRule.NoOffset;
-        public RotationRule rotationRule = OffsetRotationRule.NoOffset;
+        public PositionRule PositionRule { get; private set; } = OffsetPositionRule.NoOffset;
+        public RotationRule RotationRule { get; private set; } = OffsetRotationRule.NoOffset;
+
+        internal Constructable constructable;
         
         public TransformationRule WithPositionRule(PositionRule positionRule)
         {
-            this.positionRule = positionRule;
+            PositionRule = positionRule;
+            positionRule.container = this;
             return this;
         }
 
         public TransformationRule WithRotationRule(RotationRule rotationRule)
         {
-            this.rotationRule = rotationRule;
+            RotationRule = rotationRule;
+            rotationRule.container = this;
             return this;
         }
     }
