@@ -16,17 +16,19 @@ namespace ModularilyBased.Library
          * Apply snapping to the targetted object.
          * </summary>
          */
-        public static ModuleSnapper SetSnappingRules(GameObject target, RoomRule room, PlacementRule placement, TransformationRule transformationRule = null)
+        public static ModuleSnapper SetSnappingRules(Constructable target, RoomRule room, PlacementRule placement, TransformationRule transformationRule = null)
         {
             if (target == null)
             {
                 return null;
             }
 
-            ModuleSnapper snapper = target.EnsureComponent<ModuleSnapper>();
+            ModuleSnapper snapper = target.gameObject.EnsureComponent<ModuleSnapper>();
             snapper.room = room;
             snapper.placement = placement;
-            snapper.transformationRule = transformationRule ?? new TransformationRule();
+            snapper.transformationRule = transformationRule ??= new TransformationRule();
+
+            transformationRule.constructable = target;
 
             return snapper;
         }

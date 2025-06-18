@@ -36,20 +36,21 @@ namespace ModularilyBased.Example
                 GameObject model = obj.transform.Find("descent_trashcan_01").gameObject;
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
-                PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Wall | ConstructableFlags.Base, model);
+
+                Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Base, model);
 
                 ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
                 bounds.bounds.position = new Vector3(0f, 0.7f, 0f);
                 bounds.bounds.size = new Vector3(0.5f, 0.7f, 0.2f);
 
                 TransformationRule rules = new TransformationRule()
-                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 1f))
+                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 0f))
                 .WithRotationRule(OffsetRotationRule.NoOffset);
 
                 ModuleSnapper.SetSnappingRules(
-                    obj,
-                    ModuleSnapper.RoomRule.SmallRoom,
-                    ModuleSnapper.PlacementRule.Side,
+                    constructable,
+                    ModuleSnapper.RoomRule.SmallRoom | ModuleSnapper.RoomRule.LargeRoom,
+                    ModuleSnapper.PlacementRule.Center,
                     rules);
             };
 
