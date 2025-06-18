@@ -70,7 +70,7 @@ namespace ModularilyBased.Patch
             identifier.face = faceType;
             identifier.explicitFace = face;
 
-            result = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            result = new GameObject();
             identifier.collider = result.EnsureComponent<BoxCollider>();
 
             result.layer = LayerID.Trigger;
