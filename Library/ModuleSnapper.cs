@@ -33,6 +33,13 @@ namespace ModularilyBased.Library
 
         public bool CanBuildOn(BaseFaceIdentifier identifier)
         {
+            if ((identifier.IsWall() && !placement.HasFlag(PlacementRule.Side))
+                || (identifier.IsCenter() && !placement.HasFlag(PlacementRule.Center))
+                || (identifier.IsCap() && !placement.HasFlag(PlacementRule.CorridorCap)))
+            {
+                return false;
+            }
+
             TechType roomType = identifier.room;
 
             if ((roomType == TechType.BaseRoom && !room.HasFlag(RoomRule.SmallRoom))
