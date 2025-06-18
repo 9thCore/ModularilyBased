@@ -14,9 +14,9 @@ namespace ModularilyBased.Library.TransformRule.Rotation
          * Instance of an <c>OffsetRotationRule</c> that describes no additional offset applied to the module.
          * </summary>
          */
-        public static OffsetRotationRule NoOffset = new OffsetRotationRule(0f);
+        public static readonly OffsetRotationRule NoOffset = new OffsetRotationRule(0f);
 
-        public float offset;
+        public readonly float offset;
 
         /**
          * <summary>
