@@ -39,6 +39,7 @@ namespace ModularilyBased
             }
 
             WallSnappedExample.Register();
+            CenterSnappedExample.Register();
         }
     }
 }
