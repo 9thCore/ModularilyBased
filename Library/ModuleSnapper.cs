@@ -37,7 +37,8 @@ namespace ModularilyBased.Library
         {
             if ((identifier.IsWall() && !placement.HasFlag(PlacementRule.Side))
                 || (identifier.IsCenter() && !placement.HasFlag(PlacementRule.Center))
-                || (identifier.IsCap() && !placement.HasFlag(PlacementRule.CorridorCap)))
+                // || (identifier.IsCap() && !placement.HasFlag(PlacementRule.CorridorCap))
+                )
             {
                 return false;
             }
@@ -73,7 +74,7 @@ namespace ModularilyBased.Library
             None = 0,
             Side = 1 << 0,
             Center = 1 << 1,
-            CorridorCap = 1 << 2
+            // CorridorCap = 1 << 2
         }
     }
 }
