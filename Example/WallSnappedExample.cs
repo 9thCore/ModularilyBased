@@ -37,7 +37,7 @@ namespace ModularilyBased.Example
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
 
-                Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Rotatable | ConstructableFlags.Base, model);
+                Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Base, model);
 
                 ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
                 bounds.bounds.position = new Vector3(0f, 0.7f, 0f);
@@ -50,7 +50,7 @@ namespace ModularilyBased.Example
                 ModuleSnapper.SetSnappingRules(
                     constructable,
                     ModuleSnapper.RoomRule.SmallRoom | ModuleSnapper.RoomRule.LargeRoom,
-                    ModuleSnapper.PlacementRule.Center,
+                    ModuleSnapper.PlacementRule.Side,
                     rules);
             };
 
