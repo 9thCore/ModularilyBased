@@ -16,27 +16,53 @@ namespace ModularilyBased.Library.TransformRule.Rotation
          * Instance of a <c>SnappedRotationRule</c> that describes no additional offset applied to the module and snapping to the nearest cardinal direction.
          * </summary>
          */
-        public static readonly SnappedRotationRule NoOffsetCardinal = new SnappedRotationRule(0f, 90f);
+        public static readonly SnappedRotationRule NoOffsetCardinal = new SnappedRotationRule(0f, 90);
 
-        public readonly float snap;
+        private readonly int max;
+        public readonly int snap;
 
         /**
          * <summary>
          * Construct a rotation rule with the given <paramref name="offset"/> and <paramref name="snap"/> (Y axis).
+         * Snap must be between 0 and 360, inclusive.
          * </summary>
          */
-        public SnappedRotationRule(float offset, float snap) : base(offset)
+        public SnappedRotationRule(float offset, int snap) : base(offset)
         {
+            if (snap < 0 || snap > 360)
+            {
+                throw new ArgumentOutOfRangeException(nameof(snap));
+            }
+
             this.snap = snap;
+            max = 360 / GreatestCommonDivisor(360, snap);
         }
 
         public override Quaternion Calculate(Transform transform)
         {
-            float additive = FixedRotation()
-                ? 0f
-                : (float)Math.Round(Builder.additiveRotation / snap, 0, MidpointRounding.AwayFromZero) * snap;
+            float additive = 0f;
+
+            if (!FixedRotation())
+            {
+                Builder.UpdateRotation(max);
+                additive = Builder.lastRotation * snap;
+            }
 
             return transform.rotation * Quaternion.AngleAxis(additive + offset, Vector3.up);
+        }
+
+        // idk where else to throw this
+        private static int GreatestCommonDivisor(int a, int b)
+        {
+            int r;
+            while (b != 0)
+            {
+                r = a % b;
+                a = b;
+                b = r;
+            }
+
+            return a;
         }
     }
 }
