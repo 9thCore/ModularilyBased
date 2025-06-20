@@ -43,7 +43,7 @@ namespace ModularilyBased.Patch
         public static void PatchUpdateAllowed(ref bool __result)
         {
             GameObject prefab = Builder.prefab;
-            if (!prefab.TryGetComponent(out ModuleSnapper snapper))
+            if (!prefab.TryGetComponent(out ModuleSnapper _))
             {
                 return;
             }
