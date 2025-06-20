@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using ModularilyBased.Library;
-using System;
 using UnityEngine;
 
 namespace ModularilyBased.Patch
@@ -35,6 +34,23 @@ namespace ModularilyBased.Patch
             }
         }
 
+        public static void PatchVertical(BaseExplicitFace face)
+        {
+            if (!face.IsBottomFace())
+            {
+                return;
+            }
+
+            if (face.IsCenterFace())
+            {
+                PatchCenter(face);
+            }
+            else
+            {
+                PatchLadder(face);
+            }
+        }
+
         public static void PatchHorizontal(BaseExplicitFace face)
         {
             if (!TryCreateCollider(face, out GameObject obj)
@@ -46,10 +62,17 @@ namespace ModularilyBased.Patch
             obj.transform.position += obj.transform.right * distance;
         }
 
-        public static void PatchVertical(BaseExplicitFace face)
+        public static void PatchCenter(BaseExplicitFace face)
         {
-            if (!face.IsCenterFace()
-                || !TryCreateCollider(face, out GameObject obj))
+            if (!TryCreateCollider(face, out GameObject obj))
+            {
+                return;
+            }
+        }
+
+        public static void PatchLadder(BaseExplicitFace face)
+        {
+            if (!TryCreateCollider(face, out GameObject obj))
             {
                 return;
             }

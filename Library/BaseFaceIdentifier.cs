@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModularilyBased.Patch
+namespace ModularilyBased.Library
 {
     public class BaseFaceIdentifier : MonoBehaviour
     {
@@ -24,6 +24,11 @@ namespace ModularilyBased.Patch
             return Face == FaceType.CorridorCap;
         }
 
+        public bool IsLadder()
+        {
+            return Face == FaceType.Ladder;
+        }
+
         public enum FaceType
         {
             None,
@@ -33,7 +38,8 @@ namespace ModularilyBased.Patch
             CorridorCap,
             // Top,
             // Bottom,
-            Center
+            Center,
+            Ladder
         }
     }
 }

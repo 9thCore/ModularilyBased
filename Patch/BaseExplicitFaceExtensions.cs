@@ -44,6 +44,7 @@ namespace ModularilyBased.Patch
                     scale = faceType switch
                     {
                         BaseFaceIdentifier.FaceType.Center => RoomCenterColliderScale,
+                        BaseFaceIdentifier.FaceType.Ladder => RoomLadderColliderScale,
                         _ => RoomSideColliderScale
                     };
 
@@ -124,9 +125,15 @@ namespace ModularilyBased.Patch
                 return false;
             }
 
-            if (face.IsCenterFace())
+            if (face.IsBottomFace())
             {
-                type = BaseFaceIdentifier.FaceType.Center;
+                if (face.IsCenterFace())
+                {
+                    type = BaseFaceIdentifier.FaceType.Center;
+                    return true;
+                }
+
+                type = BaseFaceIdentifier.FaceType.Ladder;
                 return true;
             }
 
@@ -159,9 +166,7 @@ namespace ModularilyBased.Patch
             Vector3 position = face.transform.localPosition;
 
             // eugh
-            if (face.face?.direction == Base.Direction.Below
-                && face.gameObject.name.Contains("Cover")
-                && Math.Abs(position.x - 5f) < 0.1f
+            if (Math.Abs(position.x - 5f) < 0.1f
                 && (position.z % 5f) < 0.1f)
             {
                 return true;
@@ -170,8 +175,15 @@ namespace ModularilyBased.Patch
             return false;
         }
 
+        public static bool IsBottomFace(this BaseExplicitFace face)
+        {
+            return face.face?.direction == Base.Direction.Below
+                && face.gameObject.name.Contains("Cover");
+        }
+
         public static readonly Vector3 RoomSideColliderScale = new Vector3(0.5f, 3.0f, 3.5f);
         public static readonly Vector3 RoomCenterColliderScale = new Vector3(2.5f, 3.0f, 2.5f);
+        public static readonly Vector3 RoomLadderColliderScale = new Vector3(1.25f, 3.0f, 1.25f);
 
         public static readonly Vector3 CorridorColliderScale = new Vector3(0.5f, 2.25f, 2.25f);
 
