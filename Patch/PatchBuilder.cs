@@ -31,7 +31,7 @@ namespace ModularilyBased.Patch
 
             lastPlaceableTime = Time.frameCount;
 
-            Transform transform = identifier.collider.transform;
+            Transform transform = identifier.Collider.transform;
 
             PositionRule positionRule = snapper.transformationRule.PositionRule;
             RotationRule rotationRule = snapper.transformationRule.RotationRule;

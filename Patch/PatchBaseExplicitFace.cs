@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using ModularilyBased.Library;
 using System;
 using UnityEngine;
 
@@ -66,15 +67,15 @@ namespace ModularilyBased.Patch
             }
 
             BaseFaceIdentifier identifier = face.gameObject.AddComponent<BaseFaceIdentifier>();
-            identifier.room = type;
-            identifier.face = faceType;
-            identifier.explicitFace = face;
+            identifier.Room = type;
+            identifier.Face = faceType;
+            identifier.ExplicitFace = face;
 
             result = new GameObject();
-            identifier.collider = result.EnsureComponent<BoxCollider>();
+            identifier.Collider = result.EnsureComponent<BoxCollider>();
 
             result.layer = LayerID.Trigger;
-            identifier.collider.isTrigger = true;
+            identifier.Collider.isTrigger = true;
 
             result.transform.SetParent(face.transform, false);
             result.transform.localScale = scale;

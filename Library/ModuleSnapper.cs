@@ -43,7 +43,7 @@ namespace ModularilyBased.Library
                 return false;
             }
 
-            TechType roomType = identifier.room;
+            TechType roomType = identifier.Room;
 
             if ((roomType == TechType.BaseRoom && !room.HasFlag(RoomRule.SmallRoom))
                 || (roomType == TechType.BaseLargeRoom && !room.HasFlag(RoomRule.LargeRoom))

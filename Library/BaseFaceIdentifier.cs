@@ -4,24 +4,24 @@ namespace ModularilyBased.Patch
 {
     public class BaseFaceIdentifier : MonoBehaviour
     {
-        public BaseExplicitFace explicitFace;
-        public TechType room = TechType.None;
-        public FaceType face = FaceType.None;
-        public BoxCollider collider;
+        public BaseExplicitFace ExplicitFace { get; internal set; }
+        public TechType Room { get; internal set; } = TechType.None;
+        public FaceType Face { get; internal set; } = FaceType.None;
+        public BoxCollider Collider { get; internal set; }
 
         public bool IsWall()
         {
-            return face == FaceType.LongSide || face == FaceType.ShortSide || face == FaceType.CorridorSide;
+            return Face == FaceType.LongSide || Face == FaceType.ShortSide || Face == FaceType.CorridorSide;
         }
 
         public bool IsCenter()
         {
-            return face == FaceType.Center;
+            return Face == FaceType.Center;
         }
 
         public bool IsCap()
         {
-            return face == FaceType.CorridorCap;
+            return Face == FaceType.CorridorCap;
         }
 
         public enum FaceType
