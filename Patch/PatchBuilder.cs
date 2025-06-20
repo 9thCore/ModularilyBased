@@ -2,11 +2,6 @@
 using ModularilyBased.Library;
 using ModularilyBased.Library.TransformRule.Position;
 using ModularilyBased.Library.TransformRule.Rotation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
 using UnityEngine;
 
 namespace ModularilyBased.Patch
