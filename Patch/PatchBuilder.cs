@@ -14,7 +14,7 @@ namespace ModularilyBased.Patch
 
         [HarmonyPatch(typeof(Builder), nameof(Builder.CheckAsSubModule))]
         [HarmonyPostfix]
-        public static void PatchPlacement(ref bool __result)
+        public static void PatchPlacement(ref bool __result, ref Collider hitCollider)
         {
             GameObject prefab = Builder.prefab;
             if (Player.main.currentSub == null
@@ -34,6 +34,7 @@ namespace ModularilyBased.Patch
             Builder.placePosition = positionRule.Calculate(transform);
             Builder.placeRotation = rotationRule.Calculate(transform);
 
+            hitCollider = null;
             __result = true;
         }
 
