@@ -19,7 +19,7 @@ namespace ModularilyBased.Patch
             GameObject prefab = Builder.prefab;
             if (Player.main.currentSub == null
                 || !prefab.TryGetComponent(out ModuleSnapper snapper)
-                || !TryFindMatchingModuleCollider(out BaseFaceIdentifier identifier))
+                || !TryFindMatchingModuleCollider(Builder.prefab, out BaseFaceIdentifier identifier))
             {
                 return;
             }
@@ -51,9 +51,9 @@ namespace ModularilyBased.Patch
             __result = __result && (lastPlaceableTime == Time.frameCount);
         }
 
-        public static bool TryFindMatchingModuleCollider(out BaseFaceIdentifier result)
+        // This method is very heavy - don't use it more than required and preferably not at all
+        public static bool TryFindMatchingModuleCollider(GameObject prefab, out BaseFaceIdentifier result)
         {
-            GameObject prefab = Builder.prefab;
             if (prefab == null
                 || !prefab.TryGetComponent(out ModuleSnapper snapper))
             {
