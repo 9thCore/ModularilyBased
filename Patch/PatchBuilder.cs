@@ -10,7 +10,7 @@ namespace ModularilyBased.Patch
     public static class PatchBuilder
     {
         // awful
-        public static int lastPlaceableTime = 0;
+        private static int lastPlaceableTime = 0;
 
         [HarmonyPatch(typeof(Builder), nameof(Builder.CheckAsSubModule))]
         [HarmonyPostfix]
