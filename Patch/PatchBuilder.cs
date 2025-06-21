@@ -19,7 +19,7 @@ namespace ModularilyBased.Patch
             GameObject prefab = Builder.prefab;
             if (Player.main.currentSub == null
                 || !prefab.TryGetComponent(out ModuleSnapper snapper)
-                || !TryFindMatchingModuleCollider(Builder.prefab, out BaseFaceIdentifier identifier))
+                || !TryFindMatchingModuleCollider(prefab, out BaseFaceIdentifier identifier))
             {
                 return;
             }
