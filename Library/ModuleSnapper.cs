@@ -1,4 +1,5 @@
-﻿using ModularilyBased.Library.TransformRule;
+﻿using ModularilyBased.Library.PlaceRule;
+using ModularilyBased.Library.TransformRule;
 using ModularilyBased.Patch;
 using System;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace ModularilyBased.Library
     public class ModuleSnapper : MonoBehaviour
     {
         public RoomRule room = RoomRule.None;
-        public PlacementRule placement = PlacementRule.None;
+        public PlacementRule placement;
         public TransformationRule transformationRule = null;
 
         /**
@@ -35,10 +36,10 @@ namespace ModularilyBased.Library
 
         public bool CanBuildOn(BaseFaceIdentifier identifier)
         {
-            if ((identifier.IsWall() && !placement.HasFlag(PlacementRule.Side))
-                || (identifier.IsCenter() && !placement.HasFlag(PlacementRule.Center))
-                || (identifier.IsCap() && !placement.HasFlag(PlacementRule.CorridorCap))
-                || (identifier.IsLadder() && !placement.HasFlag(PlacementRule.Ladder))
+            if ((identifier.IsWall() && !placement.CanSnapTo(PlacementRule.SnapType.Wall))
+                || (identifier.IsCenter() && !placement.CanSnapTo(PlacementRule.SnapType.Center))
+                || (identifier.IsCap() && !placement.CanSnapTo(PlacementRule.SnapType.CorridorCap))
+                || (identifier.IsLadder() && !placement.CanSnapTo(PlacementRule.SnapType.Ladder))
                 )
             {
                 return false;
@@ -67,16 +68,6 @@ namespace ModularilyBased.Library
             MapRoom = 1 << 2,
             Moonpool = 1 << 3,
             Corridor = 1 << 4
-        }
-
-        [Flags]
-        public enum PlacementRule
-        {
-            None = 0,
-            Side = 1 << 0,
-            Center = 1 << 1,
-            CorridorCap = 1 << 2,
-            Ladder = 1 << 3
         }
     }
 }

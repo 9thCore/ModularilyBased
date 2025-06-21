@@ -7,6 +7,7 @@ using Nautilus.Assets.Gadgets;
 using ModularilyBased.Library.TransformRule;
 using ModularilyBased.Library.TransformRule.Rotation;
 using ModularilyBased.Library.TransformRule.Position;
+using ModularilyBased.Library.PlaceRule;
 
 namespace ModularilyBased.Example
 {
@@ -44,13 +45,13 @@ namespace ModularilyBased.Example
                 bounds.bounds.size = new Vector3(0.5f, 0.7f, 0.2f);
 
                 TransformationRule rules = new TransformationRule()
-                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 0f))
+                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 0.5f))
                 .WithRotationRule(SnappedRotationRule.NoOffsetCardinal);
 
                 ModuleSnapper.SetSnappingRules(
                     constructable,
                     ModuleSnapper.RoomRule.SmallRoom | ModuleSnapper.RoomRule.LargeRoom,
-                    ModuleSnapper.PlacementRule.Side,
+                    PlacementRule.SnapToWall,
                     rules);
             };
 

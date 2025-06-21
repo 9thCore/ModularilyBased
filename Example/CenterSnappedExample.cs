@@ -1,4 +1,5 @@
 ﻿using ModularilyBased.Library;
+using ModularilyBased.Library.PlaceRule;
 using ModularilyBased.Library.TransformRule;
 using ModularilyBased.Library.TransformRule.Position;
 using ModularilyBased.Library.TransformRule.Rotation;
@@ -74,7 +75,7 @@ namespace ModularilyBased.Example
             ModuleSnapper.SetSnappingRules(
                 constructable,
                 ModuleSnapper.RoomRule.SmallRoom | ModuleSnapper.RoomRule.LargeRoom,
-                ModuleSnapper.PlacementRule.Center,
+                PlacementRule.SnapToCenter,
                 rule);
 
             MaterialUtils.ApplySNShaders(model);
