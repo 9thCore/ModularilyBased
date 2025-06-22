@@ -14,6 +14,21 @@ namespace ModularilyBased.Library.TransformRule
         {
             WithPositionRule(OffsetPositionRule.NoOffset).WithRotationRule(OffsetRotationRule.NoOffset);
         }
+
+        public TransformationRule(OffsetPositionRule rule)
+        {
+            WithPositionRule(rule).WithRotationRule(OffsetRotationRule.NoOffset);
+        }
+
+        public TransformationRule(OffsetRotationRule rule)
+        {
+            WithPositionRule(OffsetPositionRule.NoOffset).WithRotationRule(rule);
+        }
+
+        public TransformationRule(OffsetPositionRule positionRule, OffsetRotationRule rotationRule)
+        {
+            WithPositionRule(positionRule).WithRotationRule(rotationRule);
+        }
         
         public TransformationRule WithPositionRule(PositionRule positionRule)
         {
