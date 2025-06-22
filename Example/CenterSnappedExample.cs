@@ -58,7 +58,7 @@ namespace ModularilyBased.Example
             Constructable constructable = PrefabUtils.AddConstructable(
                     prefab,
                     Info.TechType,
-                    ConstructableFlags.Base | ConstructableFlags.Rotatable,
+                    ConstructableFlags.Rotatable,
                     model);
 
             ConstructableBounds[] allBounds = prefab.GetComponents<ConstructableBounds>();

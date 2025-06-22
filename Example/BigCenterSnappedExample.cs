@@ -41,7 +41,7 @@ namespace ModularilyBased.Example
                 GameObject model = obj.GetComponentInChildren<MeshRenderer>().gameObject;
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
-                Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.Base, model);
+                Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.None, model);
 
                 ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
                 bounds.bounds.size = new Vector3(6f, 0.25f, 1f); // who tf knows what these units mean
