@@ -1,11 +1,9 @@
 ﻿using ModularilyBased.Library;
 using ModularilyBased.Library.PlaceRule;
 using ModularilyBased.Library.TransformRule;
-using ModularilyBased.Library.TransformRule.Position;
 using ModularilyBased.Library.TransformRule.Rotation;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
-using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Utility;
 using System;
 using TMPro;
