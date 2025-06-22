@@ -36,11 +36,7 @@ namespace ModularilyBased.Library
 
         public bool CanBuildOn(BaseFaceIdentifier identifier)
         {
-            if ((identifier.IsWall() && !placement.CanSnapTo(PlacementRule.SnapType.Wall))
-                || (identifier.IsCenter() && !placement.CanSnapTo(PlacementRule.SnapType.Center))
-                || (identifier.IsCap() && !placement.CanSnapTo(PlacementRule.SnapType.CorridorCap))
-                || (identifier.IsLadder() && !placement.CanSnapTo(PlacementRule.SnapType.Ladder))
-                )
+            if (!placement.CanBuildOn(this, identifier))
             {
                 return false;
             }

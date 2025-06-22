@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModularilyBased.Library.PlaceRule.Filter;
+using System;
+using System.Collections.Generic;
 
 namespace ModularilyBased.Library.PlaceRule
 {
@@ -13,6 +15,20 @@ namespace ModularilyBased.Library.PlaceRule
         public PlacementRule(SnapType snap)
         {
             this.snap = snap;
+        }
+
+        public virtual bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier)
+        {
+            if ((identifier.IsWall() && !CanSnapTo(SnapType.Wall))
+                || (identifier.IsCenter() && !CanSnapTo(SnapType.Center))
+                || (identifier.IsCap() && !CanSnapTo(SnapType.CorridorCap))
+                || (identifier.IsLadder() && !CanSnapTo(SnapType.Ladder))
+                )
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool CanSnapTo(SnapType type)
