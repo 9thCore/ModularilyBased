@@ -4,8 +4,6 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using ModularilyBased.Example;
-using ModularilyBased.Patch;
-using UnityEngine;
 
 namespace ModularilyBased
 {
