@@ -8,14 +8,39 @@ namespace ModularilyBased.Library
 {
     public class ModuleSnapper : MonoBehaviour
     {
+        /**
+         * <summary>
+         * Rooms this module can be placed in.
+         * </summary>
+         */
         public RoomRule room = RoomRule.None;
+
+        /**
+         * <summary>
+         * Rules that decide if this module can be placed in a snap point.
+         * </summary>
+         */
         public PlacementRule placement;
+
+        /**
+         * <summary>
+         * Rules that decide how the module may be positioned and rotated after finding a valid snap point.
+         * </summary>
+         */
         public TransformationRule transformationRule = null;
 
         /**
          * <summary>
-         * Apply snapping to the targetted object.
+         * Apply snapping to the <paramref name="target"/>, following the rules provided.
          * </summary>
+         * <remarks>
+         * <para>
+         * <paramref name="room"/> represents an enumeration flag of which rooms the module can be placed in. Note that not all rooms have all faces.<br/>
+         * <paramref name="placement"/> represents rules for deciding if a given snap is valid for the module.<br/>
+         * <paramref name="transformationRule"/> represents rules applied to the module's position and rotation, taking into account the snap point.<br/>
+         * Check <c>README.md</c> for more detailed documentation.
+         * </para>
+         * </remarks>
          */
         public static ModuleSnapper SetSnappingRules(Constructable target, RoomRule room, PlacementRule placement, TransformationRule transformationRule = null)
         {
