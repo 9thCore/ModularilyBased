@@ -96,7 +96,7 @@ namespace ModularilyBased.Patch
             identifier.Room = type;
             identifier.Face = faceType;
 
-            result = new GameObject();
+            result = Plugin.createSnapAsPrimitive ? GameObject.CreatePrimitive(PrimitiveType.Cube) : new GameObject();
             identifier.Collider = result.EnsureComponent<BoxCollider>();
 
             result.layer = LayerID.Trigger;

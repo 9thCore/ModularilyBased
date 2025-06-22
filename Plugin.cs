@@ -15,6 +15,8 @@ namespace ModularilyBased
 
         private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
+        public const bool createSnapAsPrimitive = true;
+
         public ConfigEntry<bool> register;
 
         private void Awake()
