@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using ModularilyBased.Example;
@@ -16,10 +17,15 @@ namespace ModularilyBased
 
         private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
-        public const bool RegisterExample = true;
+        public ConfigEntry<bool> register;
 
         private void Awake()
         {
+            register = Config.Bind("General",
+                "RegisterExample",
+                false,
+                "Whether to register library examples into the game. Meant just to provide working buildables.");
+
             // set project-scoped logger instance
             Logger = base.Logger;
 
@@ -33,7 +39,7 @@ namespace ModularilyBased
 
         private void InitializePrefabs()
         {
-            if (!RegisterExample)
+            if (!register.Value)
             {
                 return;
             }
