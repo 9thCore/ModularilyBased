@@ -28,6 +28,16 @@ namespace ModularilyBased.Library.TransformRule.Position
             offset = new Vector3(x, y, z);
         }
 
+        /**
+         * <summary>
+         * Construct a position rule with the given positional offset, in the form of a <c>Vector3</c>.
+         * </summary>
+         */
+        public OffsetPositionRule(Vector3 offset)
+        {
+            this.offset = offset;
+        }
+
         public override Vector3 Calculate(Transform transform)
         {
             return -offset.x * transform.forward + offset.y * transform.up - offset.z * transform.right + transform.position;
