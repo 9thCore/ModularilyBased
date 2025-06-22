@@ -95,7 +95,6 @@ namespace ModularilyBased.Patch
             BaseFaceIdentifier identifier = face.gameObject.AddComponent<BaseFaceIdentifier>();
             identifier.Room = type;
             identifier.Face = faceType;
-            identifier.ExplicitFace = face;
 
             result = new GameObject();
             identifier.Collider = result.EnsureComponent<BoxCollider>();

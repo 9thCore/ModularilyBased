@@ -4,7 +4,6 @@ namespace ModularilyBased.Library
 {
     public class BaseFaceIdentifier : MonoBehaviour
     {
-        public BaseExplicitFace ExplicitFace { get; internal set; }
         public TechType Room { get; internal set; } = TechType.None;
         public FaceType Face { get; internal set; } = FaceType.None;
         public BoxCollider Collider { get; internal set; }
