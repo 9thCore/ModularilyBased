@@ -8,6 +8,8 @@ namespace ModularilyBased.Library
         public TechType Room { get; internal set; } = TechType.None;
         public FaceType Face { get; internal set; } = FaceType.None;
         public BoxCollider Collider { get; internal set; }
+        // Only relevant for large rooms, as they contain multiple center faces
+        public int CenterFaceIndex { get; internal set; }
 
         public bool IsWall()
         {

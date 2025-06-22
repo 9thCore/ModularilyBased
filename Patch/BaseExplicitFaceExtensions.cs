@@ -163,15 +163,28 @@ namespace ModularilyBased.Patch
 
         public static bool IsCenterFace(this BaseExplicitFace face)
         {
+            return face.IsCenterFace(out _);
+        }
+
+        public static bool IsCenterFace(this BaseExplicitFace face, out int centerIndex)
+        {
             Vector3 position = face.transform.localPosition;
 
-            // eugh
-            if (Math.Abs(position.x - 5f) < 0.1f
-                && (position.z % 5f) < 0.1f)
+            if (Math.Abs(position.x - 5f) > 1e-2)
             {
+                centerIndex = default;
+                return false;
+            }
+
+            int z = (int)Math.Round(position.z, 0, MidpointRounding.AwayFromZero);
+
+            if (z > 0 && z % 5 == 0)
+            {
+                centerIndex = z / 5 - 1;
                 return true;
             }
 
+            centerIndex = default;
             return false;
         }
 

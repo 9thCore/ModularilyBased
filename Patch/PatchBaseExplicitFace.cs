@@ -41,9 +41,9 @@ namespace ModularilyBased.Patch
                 return;
             }
 
-            if (face.IsCenterFace())
+            if (face.IsCenterFace(out int centerIndex))
             {
-                PatchCenter(face);
+                PatchCenter(face, centerIndex);
             }
             else
             {
@@ -62,12 +62,15 @@ namespace ModularilyBased.Patch
             obj.transform.position += obj.transform.right * distance;
         }
 
-        public static void PatchCenter(BaseExplicitFace face)
+        public static void PatchCenter(BaseExplicitFace face, int centerIndex)
         {
             if (!TryCreateCollider(face, out GameObject obj))
             {
                 return;
             }
+
+            BaseFaceIdentifier identifier = face.GetComponent<BaseFaceIdentifier>();
+            identifier.CenterFaceIndex = centerIndex;
         }
 
         public static void PatchLadder(BaseExplicitFace face)
