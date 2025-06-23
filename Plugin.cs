@@ -1,9 +1,13 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using ModularilyBased.Example;
+using ModularilyBased.JSON;
+using ModularilyBased.Library;
+using UnityEngine;
 
 namespace ModularilyBased
 {
@@ -16,6 +20,7 @@ namespace ModularilyBased
         private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
         public const bool createSnapAsPrimitive = true;
+        public const bool allowExportingData = true;
 
         public ConfigEntry<bool> register;
 
@@ -47,6 +52,84 @@ namespace ModularilyBased
             WallSnappedExample.Register();
             CenterSnappedExample.Register();
             BigCenterSnappedExample.Register();
+        }
+
+        private void Update()
+        {
+            if (!allowExportingData)
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                Dictionary<string, RoomFaceData> cache = new();
+
+                foreach (Base seabase in GameObject.FindObjectsOfType<Base>())
+                {
+                    foreach (BaseCell cell in seabase.GetComponentsInChildren<BaseCell>())
+                    {
+                        BaseDeconstructable decon = cell.GetComponentInChildren<BaseDeconstructable>();
+
+                        Base.CellType type = Base.CellType.Empty;
+
+                        for (int i = 0; i < seabase.cellObjects.Length; i++)
+                        {
+                            if (cell.transform == seabase.cellObjects[i])
+                            {
+                                type = seabase.GetCell(i);
+                                break;
+                            }
+                        }
+
+                        string filename = decon.recipe.ToString();
+
+                        RoomFaceData data = cache.GetOrDefault(filename, null);
+                        if (data == null)
+                        {
+                            data = new RoomFaceData(filename);
+                            cache.Add(filename, data);
+                        }
+
+                        string extraID = type.ToString();
+
+                        if (data.storage.ContainsKey(extraID))
+                        {
+                            return;
+                        }
+
+                        List<FaceData> faces = new();
+                        data.storage.Add(extraID, faces);
+
+                        foreach (BaseFaceIdentifier identifier in cell.GetComponentsInChildren<BaseFaceIdentifier>())
+                        {
+                            Transform face = identifier.transform;
+                            Transform collider = identifier.Collider.transform;
+
+                            FaceData faceData = new FaceData()
+                            {
+                                face = identifier.Face,
+                                // faceCell = new Vector3Int(identifier.SeabaseFace.cell.x, identifier.SeabaseFace.cell.y, identifier.SeabaseFace.cell.z),
+                                // faceDirection = identifier.SeabaseFace.direction,
+                                seabaseFace = identifier.SeabaseFace,
+                                centerFaceIndex = identifier.CenterFaceIndex,
+                                scale = collider.localScale,
+                                position = face.localPosition,
+                                colliderPosition = collider.localPosition,
+                                rotation = face.localRotation,
+                                colliderRotation = collider.localRotation
+                            };
+
+                            faces.Add(faceData);
+                        }
+                    }
+                }
+
+                foreach (RoomFaceData data in cache.Values)
+                {
+                    data.SaveWithConverters(new Int3Converter());
+                }
+            }
         }
     }
 }
