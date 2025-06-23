@@ -2,6 +2,7 @@
 using ModularilyBased.Library.TransformRule;
 using ModularilyBased.Patch;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModularilyBased.Library
@@ -72,7 +73,7 @@ namespace ModularilyBased.Library
                 || (roomType == TechType.BaseLargeRoom && !room.HasFlag(RoomRule.LargeRoom))
                 || (roomType == TechType.BaseMapRoom && !room.HasFlag(RoomRule.MapRoom))
                 || (roomType == TechType.BaseMoonpool && !room.HasFlag(RoomRule.Moonpool))
-                || (BaseExplicitFaceExtensions.Corridors.Contains(roomType) && !room.HasFlag(RoomRule.Corridor)))
+                || (Corridors.Contains(roomType) && !room.HasFlag(RoomRule.Corridor)))
             {
                 return false;
             }
@@ -90,5 +91,17 @@ namespace ModularilyBased.Library
             Moonpool = 1 << 3,
             Corridor = 1 << 4
         }
+
+        public static readonly HashSet<TechType> Corridors = new()
+        {
+            TechType.BaseCorridor,
+            TechType.BaseCorridorI,
+            TechType.BaseCorridorL,
+            TechType.BaseCorridorX,
+            TechType.BaseCorridorT,
+            TechType.BaseCorridorGlass,
+            TechType.BaseCorridorGlassI,
+            TechType.BaseCorridorGlassL
+        };
     }
 }
