@@ -19,9 +19,7 @@ namespace ModularilyBased
 
         private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
-        public const bool createSnapAsPrimitive = true;
-        public const bool allowExportingData = true;
-
+        public static ConfigEntry<bool> debugMode;
         public ConfigEntry<bool> register;
 
         private void Awake()
@@ -30,6 +28,11 @@ namespace ModularilyBased
                 "RegisterExample",
                 false,
                 "Whether to register library examples into the game. Meant just to provide working buildables.");
+
+            debugMode = Config.Bind("General",
+                "DebugMode",
+                false,
+                "Whether DEBUG MODE is enabled. Allows saving face data in built bases in the current save by pressing 'V', and shows colliders as boxes.");
 
             // set project-scoped logger instance
             Logger = base.Logger;
@@ -56,7 +59,7 @@ namespace ModularilyBased
 
         private void Update()
         {
-            if (!allowExportingData)
+            if (!Plugin.debugMode.Value)
             {
                 return;
             }

@@ -92,7 +92,7 @@ namespace ModularilyBased.Library
             identifier.Face = data.face;
             identifier.CenterFaceIndex = data.centerFaceIndex;
 
-            GameObject collider = Plugin.createSnapAsPrimitive ? GameObject.CreatePrimitive(PrimitiveType.Cube) : new GameObject();
+            GameObject collider = Plugin.debugMode.Value ? GameObject.CreatePrimitive(PrimitiveType.Cube) : new GameObject();
             identifier.Collider = collider.EnsureComponent<BoxCollider>();
 
             collider.layer = LayerID.Trigger;

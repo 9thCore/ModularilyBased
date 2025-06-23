@@ -10,7 +10,7 @@
 
     <BepInExPluginGuid>com.9thcore.modularilybased</BepInExPluginGuid>
     <BepInExPluginName>Modularily Based</BepInExPluginName>
-    <BepInExPluginVersion>0.1.0</BepInExPluginVersion>
+    <BepInExPluginVersion>0.1.1</BepInExPluginVersion>
 
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
