@@ -100,16 +100,16 @@ namespace ModularilyBased.Patch
             switch (type)
             {
                 case TechType.BaseRoom:
-                    distance = -0.5f;
+                    distance = -0.75f;
                     return true;
                 case TechType.BaseLargeRoom:
-                    distance = 0.25f;
+                    distance = 0f;
                     return true;
                 case TechType.BaseMapRoom:
-                    distance = -1.25f;
+                    distance = -1.5f;
                     return true;
                 case TechType.BaseMoonpool:
-                    distance = longSide ? 0.35f : -0.25f;
+                    distance = longSide ? 0.5f : 0f;
                     return true;
                 default:
                     distance = 0f;
@@ -169,18 +169,11 @@ namespace ModularilyBased.Patch
         public static bool IsCenterFace(this BaseExplicitFace face, out int centerIndex)
         {
             Vector3 position = face.transform.localPosition;
-
-            if (Math.Abs(position.x - 5f) > 1e-2)
+            
+            if ((position.x == 5 && (position.z == 5 || position.z == 10 || position.z == 15 || position.z == 20))
+                || (position.z == 5 && (position.x == 5 || position.x == 10 || position.x == 15 || position.x == 20)))
             {
-                centerIndex = default;
-                return false;
-            }
-
-            int z = (int)Math.Round(position.z, 0, MidpointRounding.AwayFromZero);
-
-            if (z > 0 && z % 5 == 0)
-            {
-                centerIndex = z / 5 - 1;
+                centerIndex = 0;
                 return true;
             }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModularilyBased.Patch
 {
-    [HarmonyPatch]
+    // [HarmonyPatch]
     public class PatchBaseExplicitFace
     {
         [HarmonyPatch(typeof(BaseExplicitFace), nameof(BaseExplicitFace.MakeFaceDeconstructable))]
@@ -12,6 +12,7 @@ namespace ModularilyBased.Patch
         public static void Patch(BaseExplicitFace __result)
         {
             if (__result == null
+                || __result.name.Contains("BottomExt")
                 || !__result.face.HasValue
                 || __result.TryGetComponent(out BaseFaceIdentifier _))
             {
@@ -53,7 +54,7 @@ namespace ModularilyBased.Patch
 
         public static void PatchHorizontal(BaseExplicitFace face)
         {
-            if (!TryCreateCollider(face, out GameObject obj)
+            if (!TryCreateCollider(face, face.transform.parent, out GameObject obj)
                 || !face.TryGetColliderDistance(out float distance))
             {
                 return;
@@ -64,24 +65,24 @@ namespace ModularilyBased.Patch
 
         public static void PatchCenter(BaseExplicitFace face, int centerIndex)
         {
-            if (!TryCreateCollider(face, out GameObject obj))
+            if (!TryCreateCollider(face, face.transform.parent, out GameObject obj))
             {
                 return;
             }
 
-            BaseFaceIdentifier identifier = face.GetComponent<BaseFaceIdentifier>();
+            BaseFaceIdentifier identifier = obj.GetComponentInParent<BaseFaceIdentifier>();
             identifier.CenterFaceIndex = centerIndex;
         }
 
         public static void PatchLadder(BaseExplicitFace face)
         {
-            if (!TryCreateCollider(face, out GameObject obj))
+            if (!TryCreateCollider(face, face.transform.parent, out GameObject obj))
             {
                 return;
             }
         }
 
-        public static bool TryCreateCollider(BaseExplicitFace face, out GameObject result)
+        public static bool TryCreateCollider(BaseExplicitFace face, Transform parent, out GameObject result)
         {
             if (!face.TryGetCellIdentifier(out TechType type)
                 || !face.TryGetFaceType(out BaseFaceIdentifier.FaceType faceType)
@@ -92,9 +93,15 @@ namespace ModularilyBased.Patch
                 return false;
             }
 
-            BaseFaceIdentifier identifier = face.gameObject.AddComponent<BaseFaceIdentifier>();
+            GameObject go = new GameObject();
+            go.transform.SetParent(parent);
+            go.transform.position = face.transform.position;
+            go.transform.rotation = face.transform.rotation;
+
+            BaseFaceIdentifier identifier = go.AddComponent<BaseFaceIdentifier>();
             identifier.Room = type;
             identifier.Face = faceType;
+            identifier.SeabaseFace = face.face.Value;
 
             result = Plugin.createSnapAsPrimitive ? GameObject.CreatePrimitive(PrimitiveType.Cube) : new GameObject();
             identifier.Collider = result.EnsureComponent<BoxCollider>();
@@ -102,7 +109,7 @@ namespace ModularilyBased.Patch
             result.layer = LayerID.Trigger;
             identifier.Collider.isTrigger = true;
 
-            result.transform.SetParent(face.transform, false);
+            result.transform.SetParent(go.transform, false);
             result.transform.localScale = scale;
             result.transform.localRotation = rotation;
             result.transform.localPosition = Vector3.zero;
