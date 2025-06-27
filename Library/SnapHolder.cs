@@ -13,5 +13,10 @@ namespace ModularilyBased.Library
             root.transform.localPosition = sibling.localPosition;
             root.transform.localRotation = sibling.localRotation;
         }
+
+        public void OnDestroy()
+        {
+            Destroy(root);
+        }
     }
 }
