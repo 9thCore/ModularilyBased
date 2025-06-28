@@ -1,6 +1,4 @@
-﻿using ModularilyBased.Library.PlaceRule.Filter;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace ModularilyBased.Library.PlaceRule
 {
@@ -9,6 +7,8 @@ namespace ModularilyBased.Library.PlaceRule
         public static readonly PlacementRule SnapToWall = new PlacementRule(SnapType.Wall);
         public static readonly PlacementRule SnapToCenter = new PlacementRule(SnapType.Center);
         public static readonly PlacementRule SnapToLadder = new PlacementRule(SnapType.Ladder);
+        public static readonly PlacementRule SnapToCorridorCap = new PlacementRule(SnapType.CorridorCap);
+        public static readonly PlacementRule SnapToWaterPark = new PlacementRule(SnapType.WaterParkSide);
 
         public readonly SnapType snap = SnapType.None;
 
@@ -43,7 +43,8 @@ namespace ModularilyBased.Library.PlaceRule
             Wall = 1 << 0,
             Center = 1 << 1,
             CorridorCap = 1 << 2,
-            Ladder = 1 << 3
+            Ladder = 1 << 3,
+            WaterParkSide = 1 << 4
         }
     }
 }

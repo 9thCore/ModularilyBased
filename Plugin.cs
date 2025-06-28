@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using JetBrains.Annotations;
 using ModularilyBased.Example;
 using ModularilyBased.JSON;
 using ModularilyBased.Library;
@@ -55,6 +57,7 @@ namespace ModularilyBased
             WallSnappedExample.Register();
             CenterSnappedExample.Register();
             BigCenterSnappedExample.Register();
+            WaterParkSnappedExample.Register();
         }
 
         private void Update()
@@ -66,6 +69,8 @@ namespace ModularilyBased
 
             if (Input.GetKeyDown(KeyCode.V))
             {
+                Plugin.Logger.LogInfo($"Beginning room cache...");
+
                 Dictionary<string, RoomFaceData> cache = new();
 
                 foreach (Base seabase in GameObject.FindObjectsOfType<Base>())
@@ -96,15 +101,14 @@ namespace ModularilyBased
 
                         string extraID = type.ToString();
 
-                        if (data.storage.ContainsKey(extraID))
+                        if (!data.storage.TryGetValue(extraID, out List<FaceData> faces))
                         {
-                            return;
+                            faces = new();
+                            data.storage.Add(extraID, faces);
                         }
 
-                        List<FaceData> faces = new();
-                        data.storage.Add(extraID, faces);
-
-                        foreach (BaseFaceIdentifier identifier in cell.GetComponentsInChildren<BaseFaceIdentifier>())
+                        GameObject root = cell.GetComponent<SnapHolder>().root;
+                        foreach (BaseFaceIdentifier identifier in root.GetComponentsInChildren<BaseFaceIdentifier>(true))
                         {
                             Transform face = identifier.transform;
                             Transform collider = identifier.Collider.transform;
@@ -112,25 +116,36 @@ namespace ModularilyBased
                             FaceData faceData = new FaceData()
                             {
                                 face = identifier.Face,
-                                // faceCell = new Vector3Int(identifier.SeabaseFace.cell.x, identifier.SeabaseFace.cell.y, identifier.SeabaseFace.cell.z),
-                                // faceDirection = identifier.SeabaseFace.direction,
                                 seabaseFace = identifier.SeabaseFace,
                                 centerFaceIndex = identifier.CenterFaceIndex,
                                 scale = collider.localScale,
                                 position = face.localPosition,
-                                colliderPosition = collider.localPosition,
                                 rotation = face.localRotation,
-                                colliderRotation = collider.localRotation
                             };
 
-                            faces.Add(faceData);
+                            bool collisions = faces
+                                .Where(data => data.face == faceData.face
+                                && data.seabaseFace.cell == faceData.seabaseFace.cell
+                                && data.seabaseFace.direction == faceData.seabaseFace.direction
+                                && data.centerFaceIndex == faceData.centerFaceIndex)
+                                .Any();
+
+                            if (!collisions)
+                            {
+                                Logger.LogInfo($"Added ({faceData.face}, {faceData.seabaseFace}, {faceData.centerFaceIndex}) to {filename}/{extraID}");
+                                faces.Add(faceData);
+                            } else
+                            {
+                                Logger.LogInfo($"Detected collision ({faceData.face}, {faceData.seabaseFace}, {faceData.centerFaceIndex}) in {filename}/{extraID}, skipping");
+                            }
                         }
                     }
                 }
 
-                foreach (RoomFaceData data in cache.Values)
+                foreach (KeyValuePair<string, RoomFaceData> pair in cache)
                 {
-                    data.SaveWithConverters(new Int3Converter());
+                    pair.Value.SaveWithConverters(new Int3Converter());
+                    pair.Value.storage.Keys.ForEach(key => Logger.LogInfo($"Successfully saved into {pair.Key}/{key}"));
                 }
             }
         }

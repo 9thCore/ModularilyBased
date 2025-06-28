@@ -77,7 +77,8 @@ namespace ModularilyBased.Library
             // Top,
             // Bottom,
             Center,
-            Ladder
+            Ladder,
+            WaterPark
         }
 
         public static void CreateSnap(FaceData data, TechType room, Transform parent, out BaseFaceIdentifier identifier)
@@ -100,8 +101,34 @@ namespace ModularilyBased.Library
 
             collider.transform.SetParent(go.transform, false);
             collider.transform.localScale = data.scale;
-            collider.transform.localRotation = data.colliderRotation;
-            collider.transform.localPosition = data.colliderPosition;
+            collider.transform.localRotation = Quaternion.identity;
+            collider.transform.localPosition = Vector3.zero;
+        }
+
+        public static void CreateSnap(FaceType type, TechType tech, BaseExplicitFace face, out BaseFaceIdentifier identifier)
+        {
+            if (!face.face.HasValue)
+            {
+                Plugin.Logger.LogError($"{nameof(BaseExplicitFace)} does not have {nameof(Base.Face)}. Cannot create snap");
+
+                identifier = null;
+                return;
+            }
+
+            BaseCell cell = face.GetComponentInParent<BaseCell>();
+            SnapHolder pointer = cell.GetComponent<SnapHolder>();
+
+            FaceData data = new()
+            {
+                face = type,
+                centerFaceIndex = 0,
+                position = Vector3.zero,
+                rotation = Quaternion.identity,
+                scale = Vector3.one,
+                seabaseFace = face.face.Value
+            };
+
+            CreateSnap(data, tech, pointer.root.transform, out identifier);
         }
     }
 }
