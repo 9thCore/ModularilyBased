@@ -1,4 +1,5 @@
 ﻿using ModularilyBased.JSON;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -13,16 +14,22 @@ namespace ModularilyBased.Library
         public FaceType Face { get; internal set; } = FaceType.None;
         public BoxCollider Collider { get; internal set; }
         // Only relevant for large rooms, as they contain multiple center faces
-        public int CenterFaceIndex { get; internal set; }
-        public Base.Face SeabaseFace { get; internal set; }
+        public CenterSnapType CenterType { get; internal set; } = CenterSnapType.None;
+        public Base.Face[] SeabaseFaces { get; internal set; }
 
-        public void Link(Base seabase, BaseCell cell, Base.Face face)
+        public void Link(Base seabase, BaseCell cell, Base.Face[] faces)
         {
             seabase.onPostRebuildGeometry += UpdateFace;
             this.seabase = seabase;
             this.cell = cell;
-            SeabaseFace = face;
+            SeabaseFaces = new Base.Face[faces.Length];
+            Array.Copy(faces, SeabaseFaces, faces.Length);
             UpdateFace(seabase);
+        }
+
+        public void Link(Base seabase, BaseCell cell, Base.Face face)
+        {
+            Link(seabase, cell, new Base.Face[] { face });
         }
 
         public void OnDestroy()
@@ -37,9 +44,14 @@ namespace ModularilyBased.Library
 
         public void UpdateFace(Base seabase)
         {
-            Base.Face shiftedFace = new(SeabaseFace.cell + cell.cell, SeabaseFace.direction);
-            Base.FaceType type = seabase.GetFace(shiftedFace);
-            Collider.gameObject.SetActive(ExistingFace(type));
+            bool allFacesValid = SeabaseFaces.All(face =>
+            {
+                Base.Face shiftedFace = new(face.cell + cell.cell, face.direction);
+                Base.FaceType type = seabase.GetFace(shiftedFace);
+                return ExistingFace(type);
+            });
+
+            Collider.gameObject.SetActive(allFacesValid);
         }
 
         public static bool ExistingFace(Base.FaceType type)
@@ -81,6 +93,16 @@ namespace ModularilyBased.Library
             WaterPark
         }
 
+        // To differentiate between each snap type, as larger modules in the large room may need a different snap point.
+        public enum CenterSnapType
+        {
+            None,
+            OneFace,
+            TwoFaces,
+            ThreeFaces,
+            FourFaces
+        }
+
         public static void CreateSnap(FaceData data, TechType room, Transform parent, out BaseFaceIdentifier identifier)
         {
             GameObject go = new GameObject();
@@ -91,7 +113,12 @@ namespace ModularilyBased.Library
             identifier = go.AddComponent<BaseFaceIdentifier>();
             identifier.Room = room;
             identifier.Face = data.face;
-            identifier.CenterFaceIndex = data.centerFaceIndex;
+            identifier.CenterType = data.centerSnapType;
+
+            if (data.face == FaceType.Center)
+            {
+                identifier.CenterType = CenterSnapType.OneFace;
+            }
 
             GameObject collider = Plugin.debugMode.Value ? GameObject.CreatePrimitive(PrimitiveType.Cube) : new GameObject();
             identifier.Collider = collider.EnsureComponent<BoxCollider>();
@@ -105,30 +132,14 @@ namespace ModularilyBased.Library
             collider.transform.localPosition = Vector3.zero;
         }
 
-        public static void CreateSnap(FaceType type, TechType tech, BaseExplicitFace face, out BaseFaceIdentifier identifier)
+        public Base.Face[] CloneFaces(Base.Face[] faces)
         {
-            if (!face.face.HasValue)
+            Base.Face[] clones = new Base.Face[faces.Length];
+            for (int i = 0; i < faces.Length; i++)
             {
-                Plugin.Logger.LogError($"{nameof(BaseExplicitFace)} does not have {nameof(Base.Face)}. Cannot create snap");
-
-                identifier = null;
-                return;
+                clones[i] = faces[i];
             }
-
-            BaseCell cell = face.GetComponentInParent<BaseCell>();
-            SnapHolder pointer = cell.GetComponent<SnapHolder>();
-
-            FaceData data = new()
-            {
-                face = type,
-                centerFaceIndex = 0,
-                position = Vector3.zero,
-                rotation = Quaternion.identity,
-                scale = Vector3.one,
-                seabaseFace = face.face.Value
-            };
-
-            CreateSnap(data, tech, pointer.root.transform, out identifier);
+            return clones;
         }
     }
 }

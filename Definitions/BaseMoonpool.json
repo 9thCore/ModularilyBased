@@ -3,15 +3,17 @@
         "MoonpoolRotated": [
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 0,
-                        "Y": 0,
-                        "Z": 1
-                    },
-                    "direction": "West"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "West"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "-0.5",
                     "Y": "0",
@@ -31,15 +33,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 0,
-                        "Y": 0,
-                        "Z": 2
-                    },
-                    "direction": "West"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "West"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "-0.5",
                     "Y": "0",
@@ -59,15 +63,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 2,
-                        "Y": 0,
-                        "Z": 1
-                    },
-                    "direction": "East"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "East"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "10.5",
                     "Y": "0",
@@ -87,15 +93,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 2,
-                        "Y": 0,
-                        "Z": 2
-                    },
-                    "direction": "East"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "East"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "10.5",
                     "Y": "0",
@@ -115,15 +123,17 @@
             },
             {
                 "face": "ShortSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 1,
-                        "Y": 0,
-                        "Z": 3
-                    },
-                    "direction": "North"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 3
+                        },
+                        "direction": "North"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -143,15 +153,17 @@
             },
             {
                 "face": "ShortSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 1,
-                        "Y": 0,
-                        "Z": 0
-                    },
-                    "direction": "South"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "direction": "South"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -173,15 +185,17 @@
         "Moonpool": [
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 1,
-                        "Y": 0,
-                        "Z": 0
-                    },
-                    "direction": "South"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "direction": "South"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "4.9999",
                     "Y": "0",
@@ -201,15 +215,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 2,
-                        "Y": 0,
-                        "Z": 0
-                    },
-                    "direction": "South"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "direction": "South"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "10",
                     "Y": "0",
@@ -229,15 +245,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 1,
-                        "Y": 0,
-                        "Z": 2
-                    },
-                    "direction": "North"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "North"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -257,15 +275,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 2,
-                        "Y": 0,
-                        "Z": 2
-                    },
-                    "direction": "North"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "North"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "10",
                     "Y": "0",
@@ -285,15 +305,17 @@
             },
             {
                 "face": "ShortSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 3,
-                        "Y": 0,
-                        "Z": 1
-                    },
-                    "direction": "East"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 3,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "East"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "15",
                     "Y": "0",
@@ -313,15 +335,17 @@
             },
             {
                 "face": "ShortSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 0,
-                        "Y": 0,
-                        "Z": 1
-                    },
-                    "direction": "West"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "West"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "0",
                     "Y": "0",

@@ -3,15 +3,17 @@
         "MapRoom": [
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 0,
-                        "Y": 0,
-                        "Z": 1
-                    },
-                    "direction": "West"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 0,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "West"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "1.5",
                     "Y": "0",
@@ -31,15 +33,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 2,
-                        "Y": 0,
-                        "Z": 1
-                    },
-                    "direction": "East"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "East"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "8.5",
                     "Y": "0",
@@ -61,15 +65,17 @@
         "MapRoomRotated": [
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 1,
-                        "Y": 0,
-                        "Z": 2
-                    },
-                    "direction": "North"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "North"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -89,15 +95,17 @@
             },
             {
                 "face": "LongSide",
-                "seabaseFace": {
-                    "cell": {
-                        "X": 1,
-                        "Y": 0,
-                        "Z": 0
-                    },
-                    "direction": "South"
-                },
-                "centerFaceIndex": 0,
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 0
+                        },
+                        "direction": "South"
+                    }
+                ],
+                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",

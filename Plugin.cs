@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx;
@@ -116,27 +117,27 @@ namespace ModularilyBased
                             FaceData faceData = new FaceData()
                             {
                                 face = identifier.Face,
-                                seabaseFace = identifier.SeabaseFace,
-                                centerFaceIndex = identifier.CenterFaceIndex,
+                                seabaseFaces = identifier.SeabaseFaces,
                                 scale = collider.localScale,
                                 position = face.localPosition,
                                 rotation = face.localRotation,
                             };
 
-                            bool collisions = faces
-                                .Where(data => data.face == faceData.face
-                                && data.seabaseFace.cell == faceData.seabaseFace.cell
-                                && data.seabaseFace.direction == faceData.seabaseFace.direction
-                                && data.centerFaceIndex == faceData.centerFaceIndex)
-                                .Any();
+                            bool unique = faces
+                                .All(face =>
+                                {
+                                    if (face.face != faceData.face)
+                                    {
+                                        return true;
+                                    }
 
-                            if (!collisions)
+                                    return face.seabaseFaces.All(face => !faceData.seabaseFaces.Any(face2 => face2.cell == face.cell && face2.direction == face.direction));
+                                });
+
+                            if (unique)
                             {
-                                Logger.LogInfo($"Added ({faceData.face}, {faceData.seabaseFace}, {faceData.centerFaceIndex}) to {filename}/{extraID}");
+                                Logger.LogInfo($"Added ({faceData.face}, {faceData.seabaseFaces}) to {filename}/{extraID}");
                                 faces.Add(faceData);
-                            } else
-                            {
-                                Logger.LogInfo($"Detected collision ({faceData.face}, {faceData.seabaseFace}, {faceData.centerFaceIndex}) in {filename}/{extraID}, skipping");
                             }
                         }
                     }

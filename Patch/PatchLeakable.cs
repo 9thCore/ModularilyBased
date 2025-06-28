@@ -50,8 +50,13 @@ namespace ModularilyBased.Patch
 
             foreach (FaceData faceData in roomData.storage[extraID])
             {
+                if (faceData.seabaseFaces == null)
+                {
+                    faceData.seabaseFaces = new Base.Face[0];
+                }
+
                 BaseFaceIdentifier.CreateSnap(faceData, room, sibling.transform, out BaseFaceIdentifier identifier);
-                identifier.Link(seabase, cell, faceData.seabaseFace);
+                identifier.Link(seabase, cell, faceData.seabaseFaces);
             }
         }
     }
