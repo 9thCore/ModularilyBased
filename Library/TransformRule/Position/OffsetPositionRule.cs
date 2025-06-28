@@ -40,7 +40,7 @@ namespace ModularilyBased.Library.TransformRule.Position
 
         public override Vector3 Calculate(Transform transform)
         {
-            return -offset.x * transform.forward + offset.y * transform.up - offset.z * transform.right + transform.position;
+            return transform.TransformDirection(offset) + transform.position;
         }
     }
 }
