@@ -553,6 +553,260 @@
                 }
             },
             {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "5",
+                    "Y": "0",
+                    "Z": "6.66"
+                },
+                "scale": {
+                    "X": "5.83",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "-0.7071",
+                    "Z": "0",
+                    "W": "0.7071"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 3
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "5",
+                    "Y": "0",
+                    "Z": "12.5"
+                },
+                "scale": {
+                    "X": "5.83",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "-0.7071",
+                    "Z": "0",
+                    "W": "0.7071"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 3
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 4
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "5",
+                    "Y": "0",
+                    "Z": "18.34"
+                },
+                "scale": {
+                    "X": "5.83",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "-0.7071",
+                    "Z": "0",
+                    "W": "0.7071"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 3
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "5",
+                    "Y": "0",
+                    "Z": "8.125"
+                },
+                "scale": {
+                    "X": "8.75",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "-0.7071",
+                    "Z": "0",
+                    "W": "0.7071"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 3
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 4
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "5",
+                    "Y": "0",
+                    "Z": "16.875"
+                },
+                "scale": {
+                    "X": "8.75",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "-0.7071",
+                    "Z": "0",
+                    "W": "0.7071"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 2
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 3
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 4
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "5",
+                    "Y": "0",
+                    "Z": "12.5"
+                },
+                "scale": {
+                    "X": "17.5",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "-0.7071",
+                    "Z": "0",
+                    "W": "0.7071"
+                }
+            },
+            {
                 "face": "Ladder",
                 "seabaseFaces": [
                     {
@@ -1654,6 +1908,260 @@
                     "Y": "-0.7071",
                     "Z": "0",
                     "W": "0.7071"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "6.66",
+                    "Y": "0",
+                    "Z": "5"
+                },
+                "scale": {
+                    "X": "5.83",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "0",
+                    "Z": "0",
+                    "W": "1"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 3,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "12.5",
+                    "Y": "0",
+                    "Z": "5"
+                },
+                "scale": {
+                    "X": "5.83",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "0",
+                    "Z": "0",
+                    "W": "1"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 3,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 4,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "18.34",
+                    "Y": "0",
+                    "Z": "5"
+                },
+                "scale": {
+                    "X": "5.83",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "0",
+                    "Z": "0",
+                    "W": "1"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 3,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "8.125",
+                    "Y": "0",
+                    "Z": "5"
+                },
+                "scale": {
+                    "X": "8.75",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "0",
+                    "Z": "0",
+                    "W": "1"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 3,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 4,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "16.875",
+                    "Y": "0",
+                    "Z": "5"
+                },
+                "scale": {
+                    "X": "8.75",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "0",
+                    "Z": "0",
+                    "W": "1"
+                }
+            },
+            {
+                "face": "Center",
+                "seabaseFaces": [
+                    {
+                        "cell": {
+                            "X": 1,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 2,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 3,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    },
+                    {
+                        "cell": {
+                            "X": 4,
+                            "Y": 0,
+                            "Z": 1
+                        },
+                        "direction": "Below"
+                    }
+                ],
+                "position": {
+                    "X": "12.5",
+                    "Y": "0",
+                    "Z": "5"
+                },
+                "scale": {
+                    "X": "17.5",
+                    "Y": "3",
+                    "Z": "2.5"
+                },
+                "rotation": {
+                    "X": "0",
+                    "Y": "0",
+                    "Z": "0",
+                    "W": "1"
                 }
             },
             {

@@ -87,13 +87,10 @@ namespace ModularilyBased.Patch
                     continue;
                 }
 
-                if (snapper.CanBuildOn(faceIdentifier))
+                if (snapper.CanBuildOn(faceIdentifier) && distance < closestIdentifierDistance)
                 {
-                    if (distance < closestIdentifierDistance)
-                    {
-                        closestIdentifierDistance = distance;
-                        closestIdentifier = faceIdentifier;
-                    }
+                    closestIdentifierDistance = distance;
+                    closestIdentifier = faceIdentifier;
                 }
             }
 

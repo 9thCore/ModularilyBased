@@ -42,6 +42,8 @@ namespace ModularilyBased.Library
 
         public void UpdateFace(Base seabase)
         {
+            IBaseModuleGeometry[] allGeometry = seabase.GetComponentsInChildren<IBaseModuleGeometry>();
+
             bool allFacesValid = SeabaseFaces.All(face =>
             {
                 Base.Face shiftedFace = new(face.cell + cell.cell, face.direction);
@@ -52,15 +54,9 @@ namespace ModularilyBased.Library
                     return false;
                 }
 
-                IBaseModuleGeometry geometry = seabase.GetModuleGeometry(shiftedFace);
-                if (geometry != null)
-                {
-                    return false;
-                }
-
-                return true;
+                return allGeometry.All(geometry => geometry.geometryFace.cell != shiftedFace.cell);
             });
-
+            
             Collider.gameObject.SetActive(allFacesValid);
         }
 

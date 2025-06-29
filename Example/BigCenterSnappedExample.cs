@@ -1,15 +1,8 @@
 ﻿using ModularilyBased.Library;
 using ModularilyBased.Library.PlaceRule;
-using ModularilyBased.Library.PlaceRule.Filter;
-using ModularilyBased.Library.TransformRule;
-using ModularilyBased.Library.TransformRule.Position;
-using ModularilyBased.Library.TransformRule.Rotation;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
-using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Utility;
-using System;
-using TMPro;
 using UnityEngine;
 
 namespace ModularilyBased.Example
@@ -32,33 +25,39 @@ namespace ModularilyBased.Example
                 ));
             prefab.SetPdaGroupCategory(TechGroup.InteriorPieces, TechCategory.InteriorPiece);
 
-            CloneTemplate template = new CloneTemplate(Info, "cc14ee20-80c5-4573-ae1b-68bebc0feadf");
-
-            template.ModifyPrefab += (GameObject obj) =>
-            {
-                obj.transform.localScale = new Vector3(obj.transform.localScale.x, obj.transform.localScale.y, obj.transform.localScale.z * 3);
-
-                GameObject model = obj.GetComponentInChildren<MeshRenderer>().gameObject;
-
-                PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
-                Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.None, model);
-
-                ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
-                bounds.bounds.size = new Vector3(1f, 0.25f, 6f); // who tf knows what these units mean
-
-                TransformationRule transformation = new TransformationRule()
-                .WithRotationRule(SnappedRotationRule.NoOffsetCardinal)
-                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 0f));
-
-                ModuleSnapper.SetSnappingRules(
-                    constructable,
-                    ModuleSnapper.RoomRule.LargeRoom,
-                    PlacementRule.LargeRoomDoubleFace,
-                    transformation);
-            };
-
-            prefab.SetGameObject(template);
+            prefab.SetGameObject(GetGameObject);
             prefab.Register();
+        }
+
+        public static GameObject GetGameObject()
+        {
+            GameObject obj = new GameObject();
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localScale = Vector3.one;
+
+            GameObject model = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            model.transform.SetParent(obj.transform);
+            model.transform.localPosition = Vector3.zero;
+            model.transform.localRotation = Quaternion.identity;
+
+            model.transform.localScale = new Vector3(7.5f, 2.5f, 1f);
+
+            PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
+            Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.None, model);
+            constructable.placeDefaultDistance = 4f;
+            
+            MaterialUtils.ApplySNShaders(model);
+
+            ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
+            bounds.bounds.size = model.transform.localScale;
+            
+            ModuleSnapper.SetSnappingRules(
+                constructable,
+                ModuleSnapper.RoomRule.LargeRoom,
+                PlacementRule.LargeRoomDoubleFace);
+
+            return obj;
         }
     }
 }
