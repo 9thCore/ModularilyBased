@@ -103,16 +103,6 @@ namespace ModularilyBased.Library
             WaterPark
         }
 
-        // To differentiate between each snap type, as larger modules in the large room may need a different snap point.
-        public enum CenterSnapType
-        {
-            None,
-            OneFace,
-            TwoFaces,
-            ThreeFaces,
-            FourFaces
-        }
-
         public static void CreateSnap(FaceData data, TechType room, Transform parent, out BaseFaceIdentifier identifier)
         {
             GameObject go = new GameObject();
