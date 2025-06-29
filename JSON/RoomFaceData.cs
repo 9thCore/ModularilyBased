@@ -43,6 +43,7 @@ namespace ModularilyBased.JSON
             }
 
             data.LoadWithConverters(false, new Int3Converter());
+            faceCache.Add(identifier, data);
             return true;
         }
 
