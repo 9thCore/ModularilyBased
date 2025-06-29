@@ -134,6 +134,9 @@ namespace ModularilyBased.Library
             collider.transform.localScale = data.scale;
             collider.transform.localRotation = Quaternion.identity;
             collider.transform.localPosition = Vector3.zero;
+
+            go.name = $"SnapPoint_{room}/{data.face}";
+            collider.name = $"SnapPointTrigger_{room}/{data.face}";
         }
     }
 }

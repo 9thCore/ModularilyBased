@@ -12,6 +12,7 @@ namespace ModularilyBased.Library
             root.transform.SetParent(sibling.parent);
             root.transform.localPosition = sibling.localPosition;
             root.transform.localRotation = sibling.localRotation;
+            root.name = $"{PluginInfo.PLUGIN_NAME} Snap Root";
         }
 
         public void OnDestroy()
