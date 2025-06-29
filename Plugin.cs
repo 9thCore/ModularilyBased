@@ -131,7 +131,7 @@ namespace ModularilyBased
                                         return true;
                                     }
 
-                                    return face.seabaseFaces.All(face => !faceData.seabaseFaces.Any(face2 => face2.cell == face.cell && face2.direction == face.direction));
+                                    return !face.seabaseFaces.SequenceEqual(faceData.seabaseFaces);
                                 });
 
                             if (unique)
