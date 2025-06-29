@@ -1,8 +1,14 @@
 ﻿using HarmonyLib;
 using ModularilyBased.JSON;
 using ModularilyBased.Library;
+using Oculus.Platform.Models;
+using Sentry;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UWE;
+using static ClipMapManager;
 
 namespace ModularilyBased.Patch
 {
@@ -48,15 +54,19 @@ namespace ModularilyBased.Patch
                 return;
             }
 
-            foreach (FaceData faceData in roomData.storage[extraID])
-            {
-                if (faceData.seabaseFaces == null)
-                {
-                    faceData.seabaseFaces = new Base.Face[0];
-                }
+            CoroutineHost.StartCoroutine(CreateSnap(roomData.storage[extraID], room, sibling.transform, seabase, cell));
+        }
 
-                BaseFaceIdentifier.CreateSnap(faceData, room, sibling.transform, out BaseFaceIdentifier identifier);
+        public static IEnumerator CreateSnap(IEnumerable<FaceData> faces, TechType room, Transform root, Base seabase, BaseCell cell)
+        {
+            foreach (FaceData faceData in faces)
+            {
+                faceData.seabaseFaces ??= new Base.Face[0];
+
+                BaseFaceIdentifier.CreateSnap(faceData, room, root, out BaseFaceIdentifier identifier);
                 identifier.Link(seabase, cell, faceData.seabaseFaces);
+
+                yield return null;
             }
         }
     }
