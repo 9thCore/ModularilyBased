@@ -7,7 +7,6 @@ namespace ModularilyBased.JSON
     {
         public BaseFaceIdentifier.FaceType face = BaseFaceIdentifier.FaceType.None;
         public Base.Face[] seabaseFaces;
-        public BaseFaceIdentifier.CenterSnapType centerSnapType = BaseFaceIdentifier.CenterSnapType.None;
         public Vector3 position = Vector3.zero;
         public Vector3 scale = Vector3.one;
         public Quaternion rotation = Quaternion.identity;

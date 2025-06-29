@@ -13,7 +13,6 @@
                         "direction": "North"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "0",
                     "Y": "0",
@@ -43,7 +42,6 @@
                         "direction": "East"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "2",
                     "Y": "0",

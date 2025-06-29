@@ -36,7 +36,7 @@ namespace ModularilyBased.Example
 
             template.ModifyPrefab += (GameObject obj) =>
             {
-                obj.transform.localScale = new Vector3(obj.transform.localScale.x * 3, obj.transform.localScale.y, obj.transform.localScale.z);
+                obj.transform.localScale = new Vector3(obj.transform.localScale.x, obj.transform.localScale.y, obj.transform.localScale.z * 3);
 
                 GameObject model = obj.GetComponentInChildren<MeshRenderer>().gameObject;
 
@@ -44,19 +44,16 @@ namespace ModularilyBased.Example
                 Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.None, model);
 
                 ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
-                bounds.bounds.size = new Vector3(6f, 0.25f, 1f); // who tf knows what these units mean
-
-                PlacementRule placement = new FilteredPlacementRule(PlacementRule.SnapType.Center)
-                .AddFilter(LargeRoomPlacementFilter.HalfWidth);
+                bounds.bounds.size = new Vector3(1f, 0.25f, 6f); // who tf knows what these units mean
 
                 TransformationRule transformation = new TransformationRule()
                 .WithRotationRule(SnappedRotationRule.NoOffsetCardinal)
-                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 2.5f));
+                .WithPositionRule(new OffsetPositionRule(0f, -1.25f, 0f));
 
                 ModuleSnapper.SetSnappingRules(
                     constructable,
                     ModuleSnapper.RoomRule.LargeRoom,
-                    placement,
+                    PlacementRule.LargeRoomDoubleFace,
                     transformation);
             };
 

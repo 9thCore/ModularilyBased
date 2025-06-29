@@ -13,7 +13,6 @@
                         "direction": "West"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "-0.5",
                     "Y": "0",
@@ -43,7 +42,6 @@
                         "direction": "West"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "-0.5",
                     "Y": "0",
@@ -73,7 +71,6 @@
                         "direction": "East"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "10.5",
                     "Y": "0",
@@ -103,7 +100,6 @@
                         "direction": "East"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "10.5",
                     "Y": "0",
@@ -133,7 +129,6 @@
                         "direction": "North"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -163,7 +158,6 @@
                         "direction": "South"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -195,7 +189,6 @@
                         "direction": "South"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "4.9999",
                     "Y": "0",
@@ -225,7 +218,6 @@
                         "direction": "South"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "10",
                     "Y": "0",
@@ -255,7 +247,6 @@
                         "direction": "North"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "5",
                     "Y": "0",
@@ -285,7 +276,6 @@
                         "direction": "North"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "10",
                     "Y": "0",
@@ -315,7 +305,6 @@
                         "direction": "East"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "15",
                     "Y": "0",
@@ -345,7 +334,6 @@
                         "direction": "West"
                     }
                 ],
-                "centerSnapType": "None",
                 "position": {
                     "X": "0",
                     "Y": "0",

@@ -13,8 +13,6 @@ namespace ModularilyBased.Library
         public TechType Room { get; internal set; } = TechType.None;
         public FaceType Face { get; internal set; } = FaceType.None;
         public BoxCollider Collider { get; internal set; }
-        // Only relevant for large rooms, as they contain multiple center faces
-        public CenterSnapType CenterType { get; internal set; } = CenterSnapType.None;
         public Base.Face[] SeabaseFaces { get; internal set; }
 
         public void Link(Base seabase, BaseCell cell, Base.Face[] faces)
@@ -48,7 +46,19 @@ namespace ModularilyBased.Library
             {
                 Base.Face shiftedFace = new(face.cell + cell.cell, face.direction);
                 Base.FaceType type = seabase.GetFace(shiftedFace);
-                return ExistingFace(type);
+
+                if (!ExistingFace(type))
+                {
+                    return false;
+                }
+
+                IBaseModuleGeometry geometry = seabase.GetModuleGeometry(shiftedFace);
+                if (geometry != null)
+                {
+                    return false;
+                }
+
+                return true;
             });
 
             Collider.gameObject.SetActive(allFacesValid);
@@ -113,12 +123,6 @@ namespace ModularilyBased.Library
             identifier = go.AddComponent<BaseFaceIdentifier>();
             identifier.Room = room;
             identifier.Face = data.face;
-            identifier.CenterType = data.centerSnapType;
-
-            if (data.face == FaceType.Center)
-            {
-                identifier.CenterType = CenterSnapType.OneFace;
-            }
 
             GameObject collider = Plugin.debugMode.Value ? GameObject.CreatePrimitive(PrimitiveType.Cube) : new GameObject();
             identifier.Collider = collider.EnsureComponent<BoxCollider>();
@@ -130,16 +134,6 @@ namespace ModularilyBased.Library
             collider.transform.localScale = data.scale;
             collider.transform.localRotation = Quaternion.identity;
             collider.transform.localPosition = Vector3.zero;
-        }
-
-        public Base.Face[] CloneFaces(Base.Face[] faces)
-        {
-            Base.Face[] clones = new Base.Face[faces.Length];
-            for (int i = 0; i < faces.Length; i++)
-            {
-                clones[i] = faces[i];
-            }
-            return clones;
         }
     }
 }

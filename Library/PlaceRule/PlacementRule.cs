@@ -10,16 +10,23 @@ namespace ModularilyBased.Library.PlaceRule
         public static readonly PlacementRule SnapToCorridorCap = new PlacementRule(SnapType.CorridorCap);
         public static readonly PlacementRule SnapToWaterPark = new PlacementRule(SnapType.WaterParkSide);
 
-        public readonly SnapType snap = SnapType.None;
+        public static readonly PlacementRule LargeRoomDoubleFace = new PlacementRule(SnapType.Center, 2);
+        public static readonly PlacementRule LargeRoomTripleFace = new PlacementRule(SnapType.Center, 3);
+        public static readonly PlacementRule LargeRoomQuadrupleFace = new PlacementRule(SnapType.Center, 4);
 
-        public PlacementRule(SnapType snap)
+        public readonly SnapType snap = SnapType.None;
+        public readonly int requiredFaces = 1;
+
+        public PlacementRule(SnapType snap, int requiredFaces = 1)
         {
             this.snap = snap;
+            this.requiredFaces = requiredFaces;
         }
 
         public virtual bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier)
         {
-            if ((identifier.IsWall() && !CanSnapTo(SnapType.Wall))
+            if (requiredFaces != identifier.SeabaseFaces.Length
+                || (identifier.IsWall() && !CanSnapTo(SnapType.Wall))
                 || (identifier.IsCenter() && !CanSnapTo(SnapType.Center))
                 || (identifier.IsCap() && !CanSnapTo(SnapType.CorridorCap))
                 || (identifier.IsLadder() && !CanSnapTo(SnapType.Ladder))
@@ -27,24 +34,23 @@ namespace ModularilyBased.Library.PlaceRule
             {
                 return false;
             }
-
+            
             return true;
         }
 
         public bool CanSnapTo(SnapType type)
         {
-            return snap.HasFlag(type);
+            return snap == type;
         }
 
-        [Flags]
         public enum SnapType
         {
-            None = 0,
-            Wall = 1 << 0,
-            Center = 1 << 1,
-            CorridorCap = 1 << 2,
-            Ladder = 1 << 3,
-            WaterParkSide = 1 << 4
+            None,
+            Wall,
+            Center,
+            CorridorCap,
+            Ladder,
+            WaterParkSide
         }
     }
 }
