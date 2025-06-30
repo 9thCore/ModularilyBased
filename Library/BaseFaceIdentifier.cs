@@ -1,5 +1,7 @@
 ﻿using ModularilyBased.JSON;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,19 +17,18 @@ namespace ModularilyBased.Library
         public BoxCollider Collider { get; internal set; }
         public Base.Face[] SeabaseFaces { get; internal set; }
 
-        public void Link(Base seabase, BaseCell cell, Base.Face[] faces)
+        public void Link(Base seabase, BaseCell cell, Base.Face[] faces, SnapHolder pointer)
         {
-            seabase.onPostRebuildGeometry += UpdateFace;
             this.seabase = seabase;
             this.cell = cell;
             SeabaseFaces = new Base.Face[faces.Length];
             Array.Copy(faces, SeabaseFaces, faces.Length);
-            UpdateFace(seabase);
+            pointer.OnFaceUpdates += UpdateFace;
         }
 
-        public void Link(Base seabase, BaseCell cell, Base.Face face)
+        public void Link(Base seabase, BaseCell cell, Base.Face face, SnapHolder pointer)
         {
-            Link(seabase, cell, new Base.Face[] { face });
+            Link(seabase, cell, new Base.Face[] { face }, pointer);
         }
 
         public void OnDestroy()
@@ -36,25 +37,15 @@ namespace ModularilyBased.Library
             {
                 return;
             }
-
-            seabase.onPostRebuildGeometry -= UpdateFace;
         }
 
-        public void UpdateFace(Base seabase)
+        public void UpdateFace(Base seabase, HashSet<Int3> occupiedCells)
         {
-            IBaseModuleGeometry[] allGeometry = seabase.GetComponentsInChildren<IBaseModuleGeometry>();
-
             bool allFacesValid = SeabaseFaces.All(face =>
             {
                 Base.Face shiftedFace = new(face.cell + cell.cell, face.direction);
                 Base.FaceType type = seabase.GetFace(shiftedFace);
-
-                if (!ExistingFace(type))
-                {
-                    return false;
-                }
-
-                return allGeometry.All(geometry => geometry.geometryFace.cell != shiftedFace.cell);
+                return ExistingFace(type) && !occupiedCells.Contains(shiftedFace.cell);
             });
             
             Collider.gameObject.SetActive(allFacesValid);

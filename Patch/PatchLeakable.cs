@@ -45,6 +45,7 @@ namespace ModularilyBased.Patch
             string filename = room.ToString();
 
             SnapHolder pointer = cell.gameObject.EnsureComponent<SnapHolder>();
+            pointer.Link(seabase);
             pointer.SetSibling(cell.transform);
             GameObject sibling = pointer.root;
 
@@ -54,20 +55,22 @@ namespace ModularilyBased.Patch
                 return;
             }
 
-            CoroutineHost.StartCoroutine(CreateSnap(roomData.storage[extraID], room, sibling.transform, seabase, cell));
+            CoroutineHost.StartCoroutine(CreateSnap(roomData.storage[extraID], room, sibling.transform, seabase, cell, pointer));
         }
 
-        public static IEnumerator CreateSnap(IEnumerable<FaceData> faces, TechType room, Transform root, Base seabase, BaseCell cell)
+        public static IEnumerator CreateSnap(IEnumerable<FaceData> faces, TechType room, Transform root, Base seabase, BaseCell cell, SnapHolder pointer)
         {
             foreach (FaceData faceData in faces)
             {
                 faceData.seabaseFaces ??= new Base.Face[0];
 
                 BaseFaceIdentifier.CreateSnap(faceData, room, root, out BaseFaceIdentifier identifier);
-                identifier.Link(seabase, cell, faceData.seabaseFaces);
+                identifier.Link(seabase, cell, faceData.seabaseFaces, pointer);
 
                 yield return null;
             }
+
+            pointer.UpdateFaces(seabase);
         }
     }
 }
