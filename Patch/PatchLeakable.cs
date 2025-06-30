@@ -49,13 +49,12 @@ namespace ModularilyBased.Patch
             pointer.SetSibling(cell.transform);
             GameObject sibling = pointer.root;
 
-            if (!RoomFaceData.TryLoadRoomData(filename, out RoomFaceData roomData)
-                || !roomData.storage.ContainsKey(extraID))
+            if (!RoomFaceData.TryGetFaces(filename, extraID, out List<FaceData> storage))
             {
                 return;
             }
 
-            CoroutineHost.StartCoroutine(CreateSnap(roomData.storage[extraID], room, sibling.transform, seabase, cell, pointer));
+            CoroutineHost.StartCoroutine(CreateSnap(storage, room, sibling.transform, seabase, cell, pointer));
         }
 
         public static IEnumerator CreateSnap(IEnumerable<FaceData> faces, TechType room, Transform root, Base seabase, BaseCell cell, SnapHolder pointer)

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using JetBrains.Annotations;
 using ModularilyBased.Example;
 using ModularilyBased.JSON;
 using ModularilyBased.Library;
@@ -18,7 +17,7 @@ namespace ModularilyBased
     [BepInDependency("com.snmodding.nautilus")]
     public class Plugin : BaseUnityPlugin
     {
-        public new static ManualLogSource Logger { get; private set; }
+        internal new static ManualLogSource Logger { get; private set; }
 
         private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
@@ -42,10 +41,21 @@ namespace ModularilyBased
 
             // Initialize custom prefabs
             InitializePrefabs();
+            InitializeLibrary();
 
             // register harmony patches, if there are any
             Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
             Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} has loaded. Happy base-building!");
+        }
+
+        private void InitializeLibrary()
+        {
+            string directory = "Definitions";
+
+            if (!RoomFaceData.TryAddRoomDefinitionsDirectory(directory))
+            {
+                Logger.LogError($"Could not find directory {Path.GetDirectoryName(Assembly.Location)}/{directory}. Default room data could not be loaded");
+            }
         }
 
         private void InitializePrefabs()
@@ -96,7 +106,7 @@ namespace ModularilyBased
                         RoomFaceData data = cache.GetOrDefault(filename, null);
                         if (data == null)
                         {
-                            data = new RoomFaceData(filename);
+                            data = new RoomFaceData(RoomFaceData.GetJsonPath("ModularilyBased", filename));
                             cache.Add(filename, data);
                         }
 
