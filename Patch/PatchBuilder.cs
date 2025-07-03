@@ -79,7 +79,7 @@ namespace ModularilyBased.Patch
 
                 if (faceIdentifier == null)
                 {
-                    if (distance < closestNonIdentifierDistance)
+                    if (!hit.collider.isTrigger && distance < closestNonIdentifierDistance)
                     {
                         closestNonIdentifierDistance = distance;
                     }
