@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ModularilyBased.Patch
 {
     [HarmonyPatch]
-    public static class PatchBuilder
+    internal static class PatchBuilder
     {
         // awful
         private static int lastPlaceableTime = 0;

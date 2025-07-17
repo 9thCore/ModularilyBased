@@ -51,10 +51,7 @@
         public virtual bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier)
         {
             if (requiredFaces != identifier.SeabaseFaces.Length
-                || (identifier.IsWall() && !CanSnapTo(SnapType.Wall))
-                || (identifier.IsCenter() && !CanSnapTo(SnapType.Center))
-                || (identifier.IsCap() && !CanSnapTo(SnapType.CorridorCap))
-                || (identifier.IsLadder() && !CanSnapTo(SnapType.Ladder))
+                || !CanSnapTo(identifier.GetSnapType())
                 )
             {
                 return false;

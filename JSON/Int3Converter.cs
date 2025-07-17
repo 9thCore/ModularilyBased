@@ -3,7 +3,7 @@ using System;
 
 namespace ModularilyBased.JSON
 {
-    public class Int3Converter : JsonConverter
+    internal class Int3Converter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -22,7 +22,7 @@ namespace ModularilyBased.JSON
         }
     }
 
-    public record Int3Json(int X, int Y, int Z)
+    internal record Int3Json(int X, int Y, int Z)
     {
         public static explicit operator Int3(Int3Json i) => new(i.X, i.Y, i.Z);
         public static explicit operator Int3Json(Int3 i) => new(i.x, i.y, i.z);

@@ -1,19 +1,16 @@
 ﻿using HarmonyLib;
 using ModularilyBased.JSON;
 using ModularilyBased.Library;
-using Oculus.Platform.Models;
-using Sentry;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UWE;
-using static ClipMapManager;
 
 namespace ModularilyBased.Patch
 {
     [HarmonyPatch(typeof(Leakable))]
-    public static class PatchLeakable
+    internal static class PatchLeakable
     {
         [HarmonyPatch(nameof(Leakable.Start))]
         [HarmonyPostfix]

@@ -38,7 +38,7 @@ namespace ModularilyBased.Library
 
         public void OnDestroy()
         {
-            Destroy(root);
+            DestroyImmediate(root);
         }
     }
 }

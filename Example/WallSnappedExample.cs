@@ -11,7 +11,7 @@ using ModularilyBased.Library.PlaceRule;
 
 namespace ModularilyBased.Example
 {
-    public static class WallSnappedExample
+    internal static class WallSnappedExample
     {
         public static PrefabInfo Info { get; private set; }
 

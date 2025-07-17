@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ModularilyBased.Example
 {
-    public class BigCenterSnappedExample
+    internal class BigCenterSnappedExample
     {
         public static PrefabInfo Info { get; private set; }
 

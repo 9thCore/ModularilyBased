@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace ModularilyBased.Library.PlaceRule
 {
+    /// <summary>
+    /// Placement rule that disallows placement if any of its filters fails.
+    /// </summary>
     public class FilteredPlacementRule : PlacementRule
     {
-        public readonly HashSet<BasePlacementFilter> filters = new();
+        internal readonly HashSet<BasePlacementFilter> filters = new();
 
         public FilteredPlacementRule(SnapType snap) : base(snap)
         {

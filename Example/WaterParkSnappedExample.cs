@@ -6,12 +6,11 @@ using ModularilyBased.Library;
 using Nautilus.Assets.Gadgets;
 using ModularilyBased.Library.TransformRule;
 using ModularilyBased.Library.TransformRule.Rotation;
-using ModularilyBased.Library.TransformRule.Position;
 using ModularilyBased.Library.PlaceRule;
 
 namespace ModularilyBased.Example
 {
-    public static class WaterParkSnappedExample
+    internal static class WaterParkSnappedExample
     {
         public static PrefabInfo Info { get; private set; }
 

@@ -1,6 +1,6 @@
 ﻿using ModularilyBased.JSON;
+using ModularilyBased.Library.PlaceRule;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,71 +9,66 @@ namespace ModularilyBased.Library
 {
     public class BaseFaceIdentifier : MonoBehaviour
     {
-        private Base seabase;
         private BaseCell cell;
+        private SnapHolder pointer;
 
         public TechType Room { get; internal set; } = TechType.None;
         public FaceType Face { get; internal set; } = FaceType.None;
         public BoxCollider Collider { get; internal set; }
         public Base.Face[] SeabaseFaces { get; internal set; }
 
-        public void Link(Base seabase, BaseCell cell, Base.Face[] faces, SnapHolder pointer)
+        internal void Link(Base seabase, BaseCell cell, Base.Face[] faces, SnapHolder pointer)
         {
-            this.seabase = seabase;
             this.cell = cell;
+            this.pointer = pointer;
             SeabaseFaces = new Base.Face[faces.Length];
             Array.Copy(faces, SeabaseFaces, faces.Length);
             pointer.OnFaceUpdates += UpdateFace;
         }
 
-        public void Link(Base seabase, BaseCell cell, Base.Face face, SnapHolder pointer)
-        {
-            Link(seabase, cell, new Base.Face[] { face }, pointer);
-        }
-
-        public void OnDestroy()
-        {
-            if (seabase == null)
-            {
-                return;
-            }
-        }
-
-        public void UpdateFace(Base seabase, HashSet<Int3> occupiedCells)
+        private void UpdateFace(Base seabase, HashSet<Int3> occupiedCells)
         {
             bool allFacesValid = SeabaseFaces.All(face =>
             {
                 Base.Face shiftedFace = new(face.cell + cell.cell, face.direction);
                 Base.FaceType type = seabase.GetFace(shiftedFace);
-                return ExistingFace(type) && !occupiedCells.Contains(shiftedFace.cell);
+                bool flag = ExistingFace(type);
+                if (Face != FaceType.WaterPark)
+                {
+                    flag &= !occupiedCells.Contains(shiftedFace.cell);
+                }
+                return flag;
             });
             
             Collider.gameObject.SetActive(allFacesValid);
         }
 
-        public static bool ExistingFace(Base.FaceType type)
+        internal void OnDestroy()
+        {
+            if (pointer == null)
+            {
+                return;
+            }
+
+            pointer.OnFaceUpdates -= UpdateFace;
+        }
+
+        internal static bool ExistingFace(Base.FaceType type)
         {
             return type == Base.FaceType.Solid;
         }
 
-        public bool IsWall()
+        public PlacementRule.SnapType GetSnapType()
         {
-            return Face == FaceType.LongSide || Face == FaceType.ShortSide || Face == FaceType.CorridorSide;
-        }
-
-        public bool IsCenter()
-        {
-            return Face == FaceType.Center;
-        }
-
-        public bool IsCap()
-        {
-            return Face == FaceType.CorridorCap;
-        }
-
-        public bool IsLadder()
-        {
-            return Face == FaceType.Ladder;
+            return Face switch
+            {
+                FaceType.LongSide or FaceType.ShortSide or FaceType.CorridorSide => PlacementRule.SnapType.Wall,
+                FaceType.Center => PlacementRule.SnapType.Center,
+                FaceType.CorridorCap => PlacementRule.SnapType.CorridorCap,
+                FaceType.Ladder => PlacementRule.SnapType.Ladder,
+                FaceType.WaterPark => PlacementRule.SnapType.WaterParkSide,
+                _ => PlacementRule.SnapType.None
+            };
         }
 
         public enum FaceType
@@ -90,7 +85,7 @@ namespace ModularilyBased.Library
             WaterPark
         }
 
-        public static void CreateSnap(FaceData data, TechType room, Transform parent, out BaseFaceIdentifier identifier)
+        internal static void CreateSnap(FaceData data, TechType room, Transform parent, out BaseFaceIdentifier identifier)
         {
             GameObject go = new GameObject();
             go.transform.SetParent(parent);

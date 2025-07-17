@@ -1,24 +1,28 @@
-﻿using Nautilus.Extensions;
-using Nautilus.Json;
-using Nautilus.Utility;
+﻿using Nautilus.Json;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
 namespace ModularilyBased.JSON
 {
+    /// <summary>
+    /// Main way of interfacing with the library's face definitions.
+    /// </summary>
     public class RoomFaceData : JsonFile
     {
         [JsonIgnore]
-        private string jsonFilePath;
+        private readonly string jsonFilePath;
+        /// <summary>
+        /// Standard property that json files must have.
+        /// </summary>
         public override string JsonFilePath => jsonFilePath;
 
         // Index by Base.CellType. Probably will require another identifier for custom base pieces, hence string instead of enum.
-        public Dictionary<string, List<FaceData>> storage = new();
+        [JsonProperty]
+        internal Dictionary<string, List<FaceData>> storage = new();
 
-        public RoomFaceData(string jsonFilePath)
+        internal RoomFaceData(string jsonFilePath)
         {
             this.jsonFilePath = jsonFilePath;
         }
@@ -53,7 +57,7 @@ namespace ModularilyBased.JSON
          * Add <paramref name="faces"/> to the list of faces under <paramref name="identifier"/>/<paramref name="extraID"/>.
          * </summary>
          * <remarks>
-         * Fails if the room's <c>Definition</c> does not exist under any of the given directories (<see cref="AddRoomDefinitionDirectory(string)"/>). <b>Run before loading in a save, preferably on plugin load, else the <paramref name="faces"/> might not be read.</b>
+         * Fails if the room's <c>Definition</c> does not exist under any of the given directories (<see cref="TryAddRoomDefinitionsDirectory(string, Assembly)"/>). <b>Run before loading in a save, preferably on plugin load, else the <paramref name="faces"/> might not be read.</b>
          * </remarks>
          * <returns>
          * <c>false</c> if the method fails, <c>true</c> otherwise.
@@ -75,7 +79,7 @@ namespace ModularilyBased.JSON
          * Add <paramref name="face"/> to the list of faces under <paramref name="identifier"/>/<paramref name="extraID"/>.
          * </summary>
          * <remarks>
-         * Fails if the room's <c>Definition</c> does not exist under any of the given directories (<see cref="AddRoomDefinitionDirectory(string)"/>). <b>Run before loading in a save, preferably on plugin load, else the <paramref name="face"/> might not be read.</b>
+         * Fails if the room's <c>Definition</c> does not exist under any of the given directories (<see cref="TryAddRoomDefinitionsDirectory(string, Assembly)"/>). <b>Run before loading in a save, preferably on plugin load, else the <paramref name="face"/> might not be read.</b>
          * </remarks>
          * <returns>
          * <c>false</c> if the method fails, <c>true</c> otherwise.
@@ -140,7 +144,7 @@ namespace ModularilyBased.JSON
             return faces.Count > 0;
         }
 
-        public static bool TryLoadRoomData(string identifier, out RoomFaceData data)
+        internal static bool TryLoadRoomData(string identifier, out RoomFaceData data)
         {
             if (roomCache.TryGetValue(identifier, out data))
             {
@@ -165,15 +169,15 @@ namespace ModularilyBased.JSON
             return false;
         }
 
-        public static string GetJsonPath(string definitionsDirectory, string filename)
+        internal static string GetJsonPath(string definitionsDirectory, string filename)
         {
             return Path.Combine(definitionsDirectory, $"{filename}.json");
         }
 
         private static List<string> definitionsPaths;
-        public static List<string> DefinitionsPaths => definitionsPaths ??= new List<string>();
+        internal static List<string> DefinitionsPaths => definitionsPaths ??= new List<string>();
 
-        public static readonly Dictionary<string, RoomFaceData> roomCache = new();
-        public static readonly Dictionary<string, Dictionary<string, List<FaceData>>> faceDataCache = new();
+        internal static readonly Dictionary<string, RoomFaceData> roomCache = new();
+        internal static readonly Dictionary<string, Dictionary<string, List<FaceData>>> faceDataCache = new();
     }
 }

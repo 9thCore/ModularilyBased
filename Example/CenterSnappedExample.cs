@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace ModularilyBased.Example
 {
-    public class CenterSnappedExample
+    internal class CenterSnappedExample
     {
         public static PrefabInfo Info { get; private set; }
 
