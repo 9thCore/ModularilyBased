@@ -7,6 +7,7 @@ using Nautilus.Assets.Gadgets;
 using ModularilyBased.Library.TransformRule;
 using ModularilyBased.Library.TransformRule.Rotation;
 using ModularilyBased.Library.PlaceRule;
+using System.Linq;
 
 namespace ModularilyBased.Example
 {
@@ -34,14 +35,19 @@ namespace ModularilyBased.Example
 
             template.ModifyPrefab += (GameObject obj) =>
             {
-                GameObject.Destroy(obj.FindChild("HACK"));
+                GameObject.DestroyImmediate(obj.FindChild("HACK"));
                 GameObject model = obj.GetComponentInChildren<Renderer>().transform.parent.gameObject;
+                GameObject.DestroyImmediate(obj.GetComponent<TechTag>());
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
 
                 Constructable constructable = PrefabUtils.AddConstructable(obj, Info.TechType, ConstructableFlags.None, model);
 
                 ConstructableBounds bounds = obj.EnsureComponent<ConstructableBounds>();
+                OrientedBounds.EncapsulateRenderers(obj.transform.worldToLocalMatrix, obj.GetComponentsInChildren<Renderer>().ToList(), out bounds.bounds.position, out bounds.bounds.extents);
+                bounds.bounds.position += Vector3.forward * 0.1f;
+
+                obj.EnsureComponent<BoxCollider>().size = new Vector3(0.3f, 0.5f, 0.5f);
 
                 TransformationRule rules = new TransformationRule()
                 .WithRotationRule(SnappedRotationRule.NoOffsetCardinal);
