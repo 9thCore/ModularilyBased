@@ -25,7 +25,7 @@ namespace ModularilyBased.Library.TransformRule
          * Construct a <c>TransformationRule</c> with no noticeable rotation effect, but with the given position <paramref name="rule"/> on the module.
          * </summary>
          */
-        public TransformationRule(OffsetPositionRule rule)
+        public TransformationRule(PositionRule rule)
         {
             WithPositionRule(rule).WithRotationRule(OffsetRotationRule.NoOffset);
         }
@@ -35,7 +35,7 @@ namespace ModularilyBased.Library.TransformRule
          * Construct a <c>TransformationRule</c> with no noticeable position effect, but with the given rotation <paramref name="rule"/> on the module.
          * </summary>
          */
-        public TransformationRule(OffsetRotationRule rule)
+        public TransformationRule(RotationRule rule)
         {
             WithPositionRule(OffsetPositionRule.NoOffset).WithRotationRule(rule);
         }
@@ -45,7 +45,7 @@ namespace ModularilyBased.Library.TransformRule
          * Construct a <c>TransformationRule</c> with the given <paramref name="positionRule"/> and <paramref name="rotationRule"/>.
          * </summary>
          */
-        public TransformationRule(OffsetPositionRule positionRule, OffsetRotationRule rotationRule)
+        public TransformationRule(PositionRule positionRule, RotationRule rotationRule)
         {
             WithPositionRule(positionRule).WithRotationRule(rotationRule);
         }
