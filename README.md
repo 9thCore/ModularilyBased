@@ -10,7 +10,6 @@ Usage:
 	- `PlacementRule` is a class that communicates with the library, to know if the module can be built on a specified face. `PlacementRule.SnapType` is a `Flag` enumeration, such that multiple faces can be provided to build on. The rule has a built-in derivative:  
 		- `FilteredPlacementRule`, which, if the base `PlacementRule` passes its checks, then it checks each of its `filter`s.  
 			- A filter must extend `BasePlacementFilter`.  
-			- The library comes with an example filter, `LargeRoomPlacementFilter` which disallows placing the module if it wouldn't fit in the center. (not compatible with non-center faces)  
 	- `TransformationRule` represents how the module will be placed in-world, after a valid snapping is found.  
 		- It has two components: the `PositionRule` and `RotationRule`.  
 		- `PositionRule` decides the module's position, while `RotationRule` decides the module's rotation.  
