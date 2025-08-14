@@ -24,7 +24,7 @@ namespace ModularilyBased.Example
             CustomPrefab prefab = new CustomPrefab(Info);
 
             prefab.SetRecipe(new Nautilus.Crafting.RecipeData(
-                new CraftData.Ingredient(TechType.Titanium, 2)
+                new Ingredient(TechType.Titanium, 2)
                 ));
 
             prefab.SetPdaGroupCategory(TechGroup.InteriorPieces, TechCategory.InteriorPiece);

@@ -20,8 +20,8 @@ namespace ModularilyBased.Example
             CustomPrefab prefab = new CustomPrefab(Info);
 
             prefab.SetRecipe(new Nautilus.Crafting.RecipeData(
-                new CraftData.Ingredient(TechType.AdvancedWiringKit, 4),
-                new CraftData.Ingredient(TechType.AcidMushroom)
+                new Ingredient(TechType.AdvancedWiringKit, 4),
+                new Ingredient(TechType.AcidMushroom, 1)
                 ));
             prefab.SetPdaGroupCategory(TechGroup.InteriorPieces, TechCategory.InteriorPiece);
 
