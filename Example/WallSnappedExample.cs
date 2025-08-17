@@ -29,12 +29,20 @@ namespace ModularilyBased.Example
 
             prefab.SetPdaGroupCategory(TechGroup.InteriorPieces, TechCategory.InteriorPiece);
 
+#if RELEASE
             CloneTemplate template = new CloneTemplate(Info, "386f311e-0d93-44cf-a180-f388820cb35b");
+#else
+            CloneTemplate template = new CloneTemplate(Info, "64d9faac-be43-4785-a7c1-3a8f89b72fd2"); 
+#endif
             prefab.SetGameObject(template);
 
             template.ModifyPrefab += (GameObject obj) =>
             {
+#if RELEASE
                 GameObject model = obj.transform.Find("descent_trashcan_01").gameObject;
+#else
+                GameObject model = obj.transform.Find("discovery_trashcan_01_d").gameObject;
+#endif
 
                 PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
 
