@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ModularilyBased.API.Buildable.TransformRule;
+using UnityEngine;
 
-namespace ModularilyBased.Library.TransformRule.Rotation
+namespace ModularilyBased.API.Buildable.TransformRule.Rotation
 {
     public abstract class RotationRule : BaseTransformationRule<Quaternion>
     {

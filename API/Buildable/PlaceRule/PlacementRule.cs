@@ -1,4 +1,6 @@
-﻿namespace ModularilyBased.Library.PlaceRule
+﻿using ModularilyBased.API.Buildable;
+
+namespace ModularilyBased.API.Buildable.PlaceRule
 {
     /**
      * <summary>

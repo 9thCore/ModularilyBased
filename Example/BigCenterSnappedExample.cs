@@ -1,5 +1,5 @@
-﻿using ModularilyBased.Library;
-using ModularilyBased.Library.PlaceRule;
+﻿using ModularilyBased.API.Buildable;
+using ModularilyBased.API.Buildable.PlaceRule;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;

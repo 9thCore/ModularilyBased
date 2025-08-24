@@ -2,12 +2,12 @@
 using Nautilus.Assets;
 using UnityEngine;
 using Nautilus.Utility;
-using ModularilyBased.Library;
 using Nautilus.Assets.Gadgets;
-using ModularilyBased.Library.TransformRule;
-using ModularilyBased.Library.TransformRule.Rotation;
-using ModularilyBased.Library.TransformRule.Position;
-using ModularilyBased.Library.PlaceRule;
+using ModularilyBased.API.Buildable;
+using ModularilyBased.API.Buildable.TransformRule;
+using ModularilyBased.API.Buildable.PlaceRule;
+using ModularilyBased.API.Buildable.TransformRule.Position;
+using ModularilyBased.API.Buildable.TransformRule.Rotation;
 
 namespace ModularilyBased.Example
 {

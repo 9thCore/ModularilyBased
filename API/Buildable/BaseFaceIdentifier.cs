@@ -1,11 +1,11 @@
-﻿using ModularilyBased.JSON;
-using ModularilyBased.Library.PlaceRule;
+﻿using ModularilyBased.API.Buildable.PlaceRule;
+using ModularilyBased.JSON;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace ModularilyBased.Library
+namespace ModularilyBased.API.Buildable
 {
     public class BaseFaceIdentifier : MonoBehaviour
     {

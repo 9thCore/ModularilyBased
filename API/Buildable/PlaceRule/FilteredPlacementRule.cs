@@ -1,7 +1,8 @@
-﻿using ModularilyBased.Library.PlaceRule.Filter;
+﻿using ModularilyBased.API.Buildable;
+using ModularilyBased.API.Buildable.PlaceRule.Filter;
 using System.Collections.Generic;
 
-namespace ModularilyBased.Library.PlaceRule
+namespace ModularilyBased.API.Buildable.PlaceRule
 {
     /// <summary>
     /// Placement rule that disallows placement if any of its filters fails.

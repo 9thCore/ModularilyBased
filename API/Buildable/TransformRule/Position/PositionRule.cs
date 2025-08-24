@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ModularilyBased.API.Buildable.TransformRule;
+using UnityEngine;
 
-namespace ModularilyBased.Library.TransformRule.Position
+namespace ModularilyBased.API.Buildable.TransformRule.Position
 {
     public abstract class PositionRule : BaseTransformationRule<Vector3>
     {

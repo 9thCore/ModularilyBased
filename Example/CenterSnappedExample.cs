@@ -1,7 +1,7 @@
-﻿using ModularilyBased.Library;
-using ModularilyBased.Library.PlaceRule;
-using ModularilyBased.Library.TransformRule;
-using ModularilyBased.Library.TransformRule.Rotation;
+﻿using ModularilyBased.API.Buildable;
+using ModularilyBased.API.Buildable.PlaceRule;
+using ModularilyBased.API.Buildable.TransformRule;
+using ModularilyBased.API.Buildable.TransformRule.Rotation;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;

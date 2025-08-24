@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModularilyBased.Library.TransformRule.Position
+namespace ModularilyBased.API.Buildable.TransformRule.Position
 {
     /**
     * <summary>

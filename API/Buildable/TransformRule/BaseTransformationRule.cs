@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModularilyBased.Library.TransformRule
+namespace ModularilyBased.API.Buildable.TransformRule
 {
     public abstract class BaseTransformationRule<T>
     {

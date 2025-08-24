@@ -6,9 +6,9 @@ using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using ModularilyBased.API.Buildable;
 using ModularilyBased.Example;
 using ModularilyBased.JSON;
-using ModularilyBased.Library;
 using UnityEngine;
 
 namespace ModularilyBased

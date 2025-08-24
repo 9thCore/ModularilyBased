@@ -1,7 +1,7 @@
-﻿using ModularilyBased.Library.TransformRule.Position;
-using ModularilyBased.Library.TransformRule.Rotation;
+﻿using ModularilyBased.API.Buildable.TransformRule.Position;
+using ModularilyBased.API.Buildable.TransformRule.Rotation;
 
-namespace ModularilyBased.Library.TransformRule
+namespace ModularilyBased.API.Buildable.TransformRule
 {
     public class TransformationRule
     {

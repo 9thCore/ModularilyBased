@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ModularilyBased.Library.TransformRule.Rotation
+namespace ModularilyBased.API.Buildable.TransformRule.Rotation
 {
     /**
     * <summary>

@@ -1,4 +1,7 @@
-﻿namespace ModularilyBased.Library.PlaceRule.Filter
+﻿using ModularilyBased.API.Buildable;
+using ModularilyBased.API.Buildable.PlaceRule;
+
+namespace ModularilyBased.API.Buildable.PlaceRule.Filter
 {
     /// <summary>
     /// Filter used in <see cref="FilteredPlacementRule"/> to determine if the constructable can be placed on a given face.

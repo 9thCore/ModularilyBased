@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
-using ModularilyBased.Library;
-using ModularilyBased.Library.TransformRule.Position;
-using ModularilyBased.Library.TransformRule.Rotation;
+using ModularilyBased.API.Buildable;
+using ModularilyBased.API.Buildable.TransformRule.Position;
+using ModularilyBased.API.Buildable.TransformRule.Rotation;
 using UnityEngine;
 
 namespace ModularilyBased.Patch

@@ -1,10 +1,10 @@
-﻿using ModularilyBased.Library.PlaceRule;
-using ModularilyBased.Library.TransformRule;
+﻿using ModularilyBased.API.Buildable.PlaceRule;
+using ModularilyBased.API.Buildable.TransformRule;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModularilyBased.Library
+namespace ModularilyBased.API.Buildable
 {
     public class ModuleSnapper : MonoBehaviour
     {
@@ -68,11 +68,11 @@ namespace ModularilyBased.Library
 
             TechType roomType = identifier.Room;
 
-            if ((roomType == TechType.BaseRoom && !room.HasFlag(RoomRule.SmallRoom))
-                || (roomType == TechType.BaseLargeRoom && !room.HasFlag(RoomRule.LargeRoom))
-                || (roomType == TechType.BaseMapRoom && !room.HasFlag(RoomRule.MapRoom))
-                || (roomType == TechType.BaseMoonpool && !room.HasFlag(RoomRule.Moonpool))
-                || (Corridors.Contains(roomType) && !room.HasFlag(RoomRule.Corridor)))
+            if (roomType == TechType.BaseRoom && !room.HasFlag(RoomRule.SmallRoom)
+                || roomType == TechType.BaseLargeRoom && !room.HasFlag(RoomRule.LargeRoom)
+                || roomType == TechType.BaseMapRoom && !room.HasFlag(RoomRule.MapRoom)
+                || roomType == TechType.BaseMoonpool && !room.HasFlag(RoomRule.Moonpool)
+                || Corridors.Contains(roomType) && !room.HasFlag(RoomRule.Corridor))
             {
                 return false;
             }

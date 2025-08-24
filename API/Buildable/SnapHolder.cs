@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace ModularilyBased.Library
+namespace ModularilyBased.API.Buildable
 {
     public class SnapHolder : MonoBehaviour
     {
