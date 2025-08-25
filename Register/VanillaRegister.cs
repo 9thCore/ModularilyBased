@@ -29,6 +29,9 @@ namespace ModularilyBased.Register
 
             task.Status = "Registering moonpool faces";
             yield return MoonpoolRegister.Register();
+
+            task.Status = "Registering corridor (I) faces";
+            yield return CorridorIRegister.Register();
         }
     }
 }
