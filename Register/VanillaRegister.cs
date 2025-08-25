@@ -38,6 +38,9 @@ namespace ModularilyBased.Register
 
             task.Status = "Registering corridor (T) faces";
             yield return CorridorTRegister.Register();
+
+            task.Status = "Registering corridor (X) faces";
+            CorridorXRegister.Register();
         }
     }
 }
