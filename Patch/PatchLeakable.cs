@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
+using ModularilyBased.API.Buildable;
 using ModularilyBased.API.Register;
 using ModularilyBased.Functionality;
+using ModularilyBased.Register;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,8 +36,6 @@ namespace ModularilyBased.Patch
                 return;
             }
 
-            Base.CellType type = seabase.GetCell(index);
-
             BaseDeconstructable decon = cell.GetComponentInChildren<BaseDeconstructable>();
             TechType room = decon.recipe;
 
@@ -43,6 +43,20 @@ namespace ModularilyBased.Patch
             pointer.Link(seabase);
             pointer.SetSibling(cell.transform);
             GameObject sibling = pointer.root;
+
+            Base.CellType type = seabase.GetCell(index);
+            if (ModuleSnapper.Corridors.Contains(room))
+            {
+                int angle = Mathf.RoundToInt(decon.transform.localEulerAngles.y / 90f) * 90;
+                type = angle switch
+                {
+                    0 => CorridorHelper.CorridorRotate0,
+                    90 => CorridorHelper.CorridorRotate90,
+                    180 => CorridorHelper.CorridorRotate180,
+                    270 => CorridorHelper.CorridorRotate270,
+                    _ => type
+                };
+            }
 
             List<FaceData> storage = RoomFaceHolder.GetMatchingFaces(room, type);
 
