@@ -19,7 +19,7 @@ namespace ModularilyBased.API.Buildable.TransformRule.Rotation
         public static readonly SnappedRotationRule NoOffsetCardinal = new SnappedRotationRule(0f, 90);
 
         private readonly int max;
-        public readonly int snap;
+        internal readonly int snap;
 
         /**
          * <summary>
@@ -38,7 +38,7 @@ namespace ModularilyBased.API.Buildable.TransformRule.Rotation
             max = 360 / GreatestCommonDivisor(360, snap);
         }
 
-        public override Quaternion Calculate(Transform transform)
+        internal override Quaternion Calculate(Transform transform)
         {
             float additive = 0f;
 

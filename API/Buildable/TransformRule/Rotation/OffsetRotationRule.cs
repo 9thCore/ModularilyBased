@@ -16,7 +16,7 @@ namespace ModularilyBased.API.Buildable.TransformRule.Rotation
          */
         public static readonly OffsetRotationRule NoOffset = new OffsetRotationRule(0f);
 
-        public readonly float offset;
+        internal readonly float offset;
 
         /**
          * <summary>
@@ -28,13 +28,13 @@ namespace ModularilyBased.API.Buildable.TransformRule.Rotation
             this.offset = offset;
         }
 
-        public override Quaternion Calculate(Transform transform)
+        internal override Quaternion Calculate(Transform transform)
         {
             float additive = FixedRotation() ? 0f : Builder.additiveRotation;
             return transform.rotation * Quaternion.AngleAxis(additive + offset, Vector3.up);
         }
 
-        public bool FixedRotation()
+        internal bool FixedRotation()
         {
             if (container.constructable == null)
             {

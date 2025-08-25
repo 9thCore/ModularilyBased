@@ -3,10 +3,13 @@ using ModularilyBased.API.Buildable.TransformRule.Rotation;
 
 namespace ModularilyBased.API.Buildable.TransformRule
 {
+    /// <summary>
+    /// Holder of the two transformation subrules of a given module - the position and rotation rules
+    /// </summary>
     public class TransformationRule
     {
-        public PositionRule PositionRule { get; private set; }
-        public RotationRule RotationRule { get; private set; }
+        internal PositionRule PositionRule { get; private set; }
+        internal RotationRule RotationRule { get; private set; }
 
         internal Constructable constructable;
 

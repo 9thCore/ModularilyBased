@@ -12,33 +12,62 @@ namespace ModularilyBased.API.Buildable.PlaceRule
     {
         internal readonly HashSet<BasePlacementFilter> filters = new();
 
+        /// <summary>
+        /// Construct a <see cref="FilteredPlacementRule"/> with the given snapping point and no filters
+        /// </summary>
+        /// <param name="snap">Face where the module may snap</param>
         public FilteredPlacementRule(FaceType snap) : base(snap)
         {
 
         }
 
+        /// <summary>
+        /// Construct a <see cref="FilteredPlacementRule"/> with the given snapping point and given filters
+        /// </summary>
+        /// <param name="snap">Face where the module may snap</param>
+        /// <param name="filters">Variable argument representing the filters used</param>
         public FilteredPlacementRule(FaceType snap, params BasePlacementFilter[] filters) : base(snap)
         {
             this.filters.AddRange(filters);
         }
 
+        /// <summary>
+        /// Construct a <see cref="FilteredPlacementRule"/> with the given snapping point and given filters
+        /// </summary>
+        /// <param name="snap">Face where the module may snap</param>
+        /// <param name="filters">Any object implementing <see cref="IEnumerable{T}"/></param>
         public FilteredPlacementRule(FaceType snap, IEnumerable<BasePlacementFilter> filters) : base(snap)
         {
             this.filters.AddRange(filters);
         }
 
+        /// <summary>
+        /// Add the given filter to this placement rule
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns><see cref="FilteredPlacementRule"/></returns>
         public FilteredPlacementRule AddFilter(BasePlacementFilter filter)
         {
             filters.Add(filter);
             return this;
         }
 
+        /// <summary>
+        /// Add the given filters to this placement rule
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns><see cref="FilteredPlacementRule"/></returns>
         public FilteredPlacementRule AddFilters(IEnumerable<BasePlacementFilter> filters)
         {
             this.filters.AddRange(filters);
             return this;
         }
 
+        /// <summary>
+        /// Add the given filters to this placement rule
+        /// </summary>
+        /// <param name="filters"></param>
+        /// <returns><see cref="FilteredPlacementRule"/></returns>
         public FilteredPlacementRule AddFilters(params BasePlacementFilter[] filters)
         {
             this.filters.AddRange(filters);

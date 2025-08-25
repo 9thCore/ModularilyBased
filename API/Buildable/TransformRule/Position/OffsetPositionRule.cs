@@ -16,7 +16,7 @@ namespace ModularilyBased.API.Buildable.TransformRule.Position
          */
         public static OffsetPositionRule NoOffset = new OffsetPositionRule(0f, 0f, 0f);
 
-        public Vector3 offset;
+        internal Vector3 offset;
 
         /**
          * <summary>
@@ -38,7 +38,7 @@ namespace ModularilyBased.API.Buildable.TransformRule.Position
             this.offset = offset;
         }
 
-        public override Vector3 Calculate(Transform transform)
+        internal override Vector3 Calculate(Transform transform)
         {
             return transform.TransformDirection(offset) + transform.position;
         }

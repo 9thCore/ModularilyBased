@@ -1,15 +1,12 @@
-﻿using ModularilyBased.API.Buildable.TransformRule;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ModularilyBased.API.Buildable.TransformRule.Rotation
 {
+    /// <summary>
+    /// A generic rotation "transformation" subrule
+    /// </summary>
     public abstract class RotationRule : BaseTransformationRule<Quaternion>
     {
-        /**
-         * <summary>
-         * Return the module's rotation, given the snap collider's <paramref name="transform"/>.
-         * </summary>
-         */
-        public abstract override Quaternion Calculate(Transform transform);
+        internal abstract override Quaternion Calculate(Transform transform);
     }
 }

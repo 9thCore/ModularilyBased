@@ -1,15 +1,12 @@
-﻿using ModularilyBased.API.Buildable.TransformRule;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ModularilyBased.API.Buildable.TransformRule.Position
 {
+    /// <summary>
+    /// A generic position "transformation" subrule
+    /// </summary>
     public abstract class PositionRule : BaseTransformationRule<Vector3>
     {
-        /**
-         * <summary>
-         * Return the module's position, given the snap collider's <paramref name="transform"/>.
-         * </summary>
-         */
-        public abstract override Vector3 Calculate(Transform transform);
+        internal abstract override Vector3 Calculate(Transform transform);
     }
 }
