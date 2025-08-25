@@ -2,6 +2,7 @@
 using ModularilyBased.API.Buildable;
 using ModularilyBased.API.Buildable.TransformRule.Position;
 using ModularilyBased.API.Buildable.TransformRule.Rotation;
+using ModularilyBased.Functionality;
 using UnityEngine;
 
 namespace ModularilyBased.Patch

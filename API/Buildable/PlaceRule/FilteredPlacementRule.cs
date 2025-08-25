@@ -1,5 +1,6 @@
-﻿using ModularilyBased.API.Buildable;
-using ModularilyBased.API.Buildable.PlaceRule.Filter;
+﻿using ModularilyBased.API.Buildable.PlaceRule.Filter;
+using ModularilyBased.API.Register;
+using ModularilyBased.Functionality;
 using System.Collections.Generic;
 
 namespace ModularilyBased.API.Buildable.PlaceRule
@@ -11,17 +12,17 @@ namespace ModularilyBased.API.Buildable.PlaceRule
     {
         internal readonly HashSet<BasePlacementFilter> filters = new();
 
-        public FilteredPlacementRule(SnapType snap) : base(snap)
+        public FilteredPlacementRule(FaceType snap) : base(snap)
         {
 
         }
 
-        public FilteredPlacementRule(SnapType snap, params BasePlacementFilter[] filters) : base(snap)
+        public FilteredPlacementRule(FaceType snap, params BasePlacementFilter[] filters) : base(snap)
         {
             this.filters.AddRange(filters);
         }
 
-        public FilteredPlacementRule(SnapType snap, IEnumerable<BasePlacementFilter> filters) : base(snap)
+        public FilteredPlacementRule(FaceType snap, IEnumerable<BasePlacementFilter> filters) : base(snap)
         {
             this.filters.AddRange(filters);
         }
@@ -44,7 +45,7 @@ namespace ModularilyBased.API.Buildable.PlaceRule
             return this;
         }
 
-        public override bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier)
+        internal override bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier)
         {
             if (!base.CanBuildOn(snapper, identifier))
             {

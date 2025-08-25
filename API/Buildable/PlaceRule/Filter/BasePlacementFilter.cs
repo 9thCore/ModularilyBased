@@ -1,5 +1,4 @@
-﻿using ModularilyBased.API.Buildable;
-using ModularilyBased.API.Buildable.PlaceRule;
+﻿using ModularilyBased.Functionality;
 
 namespace ModularilyBased.API.Buildable.PlaceRule.Filter
 {
@@ -14,6 +13,6 @@ namespace ModularilyBased.API.Buildable.PlaceRule.Filter
         /// <param name="snapper">The component of the given constructable.</param>
         /// <param name="identifier">The face it's attempting to be built on.</param>
         /// <returns>If the constructable can be build on this face.</returns>
-        public abstract bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier);
+        internal abstract bool CanBuildOn(ModuleSnapper snapper, BaseFaceIdentifier identifier);
     }
 }

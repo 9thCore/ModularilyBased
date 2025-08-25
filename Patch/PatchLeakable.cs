@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
-using ModularilyBased.API.Buildable;
-using ModularilyBased.JSON;
+using ModularilyBased.API.Register;
+using ModularilyBased.Functionality;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,21 +35,16 @@ namespace ModularilyBased.Patch
             }
 
             Base.CellType type = seabase.GetCell(index);
-            string extraID = type.ToString();
 
             BaseDeconstructable decon = cell.GetComponentInChildren<BaseDeconstructable>();
             TechType room = decon.recipe;
-            string filename = room.ToString();
 
             SnapHolder pointer = cell.gameObject.EnsureComponent<SnapHolder>();
             pointer.Link(seabase);
             pointer.SetSibling(cell.transform);
             GameObject sibling = pointer.root;
 
-            if (!RoomFaceData.TryGetFaces(filename, extraID, out List<FaceData> storage))
-            {
-                return;
-            }
+            List<FaceData> storage = RoomFaceHolder.GetMatchingFaces(room, type);
 
             CoroutineHost.StartCoroutine(CreateSnap(storage, room, sibling.transform, seabase, cell, pointer));
         }
@@ -58,10 +53,8 @@ namespace ModularilyBased.Patch
         {
             foreach (FaceData faceData in faces)
             {
-                faceData.seabaseFaces ??= new Base.Face[0];
-
                 BaseFaceIdentifier.CreateSnap(faceData, room, root, out BaseFaceIdentifier identifier);
-                identifier.Link(seabase, cell, faceData.seabaseFaces, pointer);
+                identifier.Link(seabase, cell, faceData.SeabaseFaces ?? new Base.Face[0], pointer);
 
                 yield return null;
             }

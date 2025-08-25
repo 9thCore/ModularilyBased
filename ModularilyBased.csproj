@@ -75,15 +75,6 @@
     
     <!-- Documentation -->
     <Copy SourceFiles="$(OutDir)\$(ProjectName).xml" DestinationFolder="$(PluginOutput)" />
-    
-    <!-- Definitions -->
-    <ItemGroup>
-      <OldDefinitions Include="$(PluginOutput)\Definitions\**\*.*" />
-      <Definitions Include="$(ProjectDir)Definitions\**\*.*" />
-    </ItemGroup>
-
-    <Delete Files="@(OldDefinitions)" />
-    <Copy SourceFiles="@(Definitions)" DestinationFolder="$(PluginOutput)\Definitions" />
 
     <!-- Prepare release -->
     <MakeDir Directories="$(ProjectDir)..\_Release\$(ProjectName)"></MakeDir>

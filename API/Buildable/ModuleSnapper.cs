@@ -1,11 +1,15 @@
 ﻿using ModularilyBased.API.Buildable.PlaceRule;
 using ModularilyBased.API.Buildable.TransformRule;
+using ModularilyBased.Functionality;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModularilyBased.API.Buildable
 {
+    /// <summary>
+    /// Makes the module snap to a face matching its settings
+    /// </summary>
     public class ModuleSnapper : MonoBehaviour
     {
         /**
@@ -59,7 +63,7 @@ namespace ModularilyBased.API.Buildable
             return snapper;
         }
 
-        public bool CanBuildOn(BaseFaceIdentifier identifier)
+        internal bool CanBuildOn(BaseFaceIdentifier identifier)
         {
             if (!placement.CanBuildOn(this, identifier))
             {
@@ -80,17 +84,41 @@ namespace ModularilyBased.API.Buildable
             return true;
         }
 
+        /// <summary>
+        /// Flag enumeration representing what rooms a module may be placed in
+        /// </summary>
         [Flags]
         public enum RoomRule
         {
+            /// <summary>
+            /// Placeable nowhere
+            /// </summary>
             None = 0,
+            /// <summary>
+            /// Placeable in the small room
+            /// </summary>
             SmallRoom = 1 << 0,
+            /// <summary>
+            /// Placeable in the large room
+            /// </summary>
             LargeRoom = 1 << 1,
+            /// <summary>
+            /// Placeable in the scanner room
+            /// </summary>
             MapRoom = 1 << 2,
+            /// <summary>
+            /// Placeable in the moonpool
+            /// </summary>
             Moonpool = 1 << 3,
+            /// <summary>
+            /// Placeable in any corridor
+            /// </summary>
             Corridor = 1 << 4
         }
 
+        /// <summary>
+        /// A representation of all corridors
+        /// </summary>
         public static readonly HashSet<TechType> Corridors = new()
         {
             TechType.BaseCorridor,

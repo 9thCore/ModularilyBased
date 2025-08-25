@@ -2,9 +2,9 @@
 using System.Linq;
 using UnityEngine;
 
-namespace ModularilyBased.API.Buildable
+namespace ModularilyBased.Functionality
 {
-    public class SnapHolder : MonoBehaviour
+    internal class SnapHolder : MonoBehaviour
     {
         public GameObject root;
 
