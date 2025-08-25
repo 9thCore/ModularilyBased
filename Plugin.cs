@@ -8,6 +8,8 @@ using BepInEx.Logging;
 using HarmonyLib;
 using ModularilyBased.API.Buildable;
 using ModularilyBased.Example;
+using ModularilyBased.Register;
+using Nautilus.Handlers;
 using UnityEngine;
 
 namespace ModularilyBased
@@ -32,6 +34,9 @@ namespace ModularilyBased
             // set project-scoped logger instance
             Logger = base.Logger;
 
+            // Initialize faces
+            InitializeFaces();
+
             // Initialize custom prefabs
             InitializePrefabs();
 
@@ -40,7 +45,9 @@ namespace ModularilyBased
             Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} has loaded. Happy base-building!");
         }
 
+        private void InitializeFaces()
         {
+            WaitScreenHandler.RegisterEarlyAsyncLoadTask(PluginInfo.PLUGIN_NAME, VanillaRegister.Register);
         }
 
         private void InitializePrefabs()
