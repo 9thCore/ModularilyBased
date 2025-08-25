@@ -26,6 +26,9 @@ namespace ModularilyBased.Register
 
             task.Status = "Registering scanner room faces";
             yield return MapRoomRegister.Register();
+
+            task.Status = "Registering moonpool faces";
+            yield return MoonpoolRegister.Register();
         }
     }
 }
