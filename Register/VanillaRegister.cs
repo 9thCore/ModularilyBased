@@ -17,6 +17,9 @@ namespace ModularilyBased.Register
 
             task.Status = "Registering small room faces";
             yield return BaseRoomRegister.Register();
+
+            task.Status = "Registering scanner room faces";
+            yield return MapRoomRegister.Register();
         }
     }
 }
