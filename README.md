@@ -1,6 +1,7 @@
-Subnautica library that expands on the base-building system with a faux base module system.
+Subnautica library that expands on the base-building system with a faux interior base piece system.
 
-Base modules are stinky, by being heavily interwoven with the base system, so how about a library that offers the snapping possibilities of modules while using normal constructables?
+Interior base pieces are stinky, by being heavily interwoven with the base system, so how about a library that offers the snapping possibilities of interior base pieces while using normal constructables?  
+Does **not** support things like windows or hatches, as this library does not (by itself) cut into the wall or floor.
 
 Usage:  
 - `ModuleSnapper.SetSnappingRules(Constructable, ModuleSnapper.RoomRule, PlacementRule, [TransformationRule = null])`
